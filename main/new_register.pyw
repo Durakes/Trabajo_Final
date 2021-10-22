@@ -1,7 +1,7 @@
 from tkinter import *
 
 root = Tk()
-root.title("Dashboard")
+root.title("Register Entry")
 root.resizable(0,0)
 
 mainFrame = Frame()
