@@ -1,8 +1,8 @@
 from tkinter import *
 
-raiz = Tk()
-raiz.title("Dashboard")
-raiz.resizable(0,0)
+root = Tk()
+root.title("Dashboard")
+root.resizable(0,0)
 
 mainFrame = Frame()
 mainFrame.config(width = "425", height = "852")
@@ -43,4 +43,4 @@ Button(mainFrame, text = "Registro", width = 10).place(x = 50, y = 500)
 Button(mainFrame, text = "Reportes", width = 10).place(x = 170, y = 500)
 Button(mainFrame, text = "Perfil", width = 10).place(x = 290, y = 500)
 
-raiz.mainloop() 
+root.mainloop() 
