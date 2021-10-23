@@ -8,15 +8,33 @@ dashboardFrame = Frame()
 registerFrame = Frame()
 loginFrame = Frame()
 profileFrame = Frame()
+paymentFrame = Frame()
 
 # ! Variables de Login
 usernameEntry = Entry()
 passwordEntry = Entry()
 
 # ! Variables de Dashboard
+categoryEntry = Entry()
+paymentEntry = Entry()
+dateEntry = Entry()
+topAmount = Label()
+currentAmount = Label()
+
+# ! Variables de Profile
 
 
-def Login():
+
+
+# ! Variables de Registro
+amountEntry = Entry()
+storeEntry = Entry()
+categoryEntry = Entry()
+paymentEntry = Entry()
+dateEntry = Entry()
+
+
+def Login():                    # Primera pantalla de login
     root.title("Login")
 
     loginFrame.config(width = "425", height = "852")
@@ -36,7 +54,7 @@ def Login():
     
     Button(loginFrame, text = "Log in", width = 20, command = Dashboard).place(x = 130, y = 280)
 
-def Register():
+def Register():                 # Pantalla de registro de nuevo gasto
     root.title("Register")
 
     dashboardFrame.pack_forget()
@@ -45,7 +63,9 @@ def Register():
     registerFrame.pack()
 
     Label(registerFrame, text = "Ingrese el monto gastado").place(x = 150, y = 50)
-    Entry(registerFrame, width = 25, borderwidth = 2).place(x = 145, y = 75)
+    amountEntry = Entry(registerFrame, width = 25, borderwidth = 2)
+    amountEntry.place(x = 145, y = 75)
+
 
     Label(registerFrame, text = "Seleccione la categoría correspondiente").place(x = 110, y = 120)
     categoryEntry = Entry(registerFrame, width = 25, borderwidth = 2, fg = "gray")
@@ -63,16 +83,18 @@ def Register():
     dateEntry.insert(0, "dd/mm/aaaa")
 
     Label(registerFrame, text = "Ingrese el nombre de la tienda o servicio").place(x = 110, y = 330)
-    Entry(registerFrame, width = 25, borderwidth = 2).place(x = 145, y = 355)
+    storeEntry = Entry(registerFrame, width = 25, borderwidth = 2)
+    storeEntry.place(x = 145, y = 355)
 
-    Button(registerFrame, text = "Guardar", width = 10).place(x = 80, y = 450)
+    Button(registerFrame, text = "Guardar", width = 10, command = Dashboard).place(x = 80, y = 450)
     Button(registerFrame, text = "Cancelar", width = 10, command = Dashboard).place(x = 250, y = 450)
 
 
-def Profile():
+def Profile():                  # Pantalla de perfil de usuario
     root.title("Profile")
 
     dashboardFrame.pack_forget()
+    paymentFrame.pack_forget()
 
     profileFrame.config(width = "425", height = "852")
     profileFrame.pack()
@@ -94,17 +116,17 @@ def Profile():
     Label(profileFrame, text = "01/22", bg = "white").place(x = 170, y = 360)
     Button(profileFrame, text = "Borrar").place(x = 300, y = 360)
 
-
     Label(profileFrame, text = "Master", bg = "white").place(x = 50, y = 400)
     Label(profileFrame, text = "**** 1234", bg = "white").place(x = 110, y = 400)
     Label(profileFrame, text = "01/22", bg = "white").place(x = 170, y = 400)
     Button(profileFrame, text = "Borrar").place(x = 300, y = 400)
 
-    Button(profileFrame, text = "Agregar nuevo método de pago").place(x = 110, y = 450)
+    Button(profileFrame, text = "Agregar nuevo método de pago", command = NewPaymenMethod).place(x = 110, y = 450)
     Button(profileFrame, text = "Volver", command = Dashboard).place(x = 180, y = 500 )
 
 
-def Dashboard():
+def Dashboard():            # Dashboard de los últimos movimientos realizados por el usuario
+
     root.title("Dashboard")
 
     loginFrame.pack_forget()
@@ -115,10 +137,12 @@ def Dashboard():
     dashboardFrame.pack()
     
     Label(dashboardFrame, text = "Límite establecido: ").place(x = 150, y = 30)
-    Label(dashboardFrame, text = "$" + "100000").place(x = 170, y = 50)
+    topAmount = Label(dashboardFrame, text = "$" + "100000")
+    topAmount.place(x = 170, y = 50)
 
     Label(dashboardFrame, text = "Usted está gastando en el mes: ").place(x = 120, y = 100)
-    Label(dashboardFrame, text = "$" + "100000").place(x = 170, y = 120)
+    currentAmount = Label(dashboardFrame, text = "$" + "100000")
+    currentAmount.place(x = 170, y = 120)
 
     Label(dashboardFrame, text = "Fecha").place(x = 50, y = 200)
     Label(dashboardFrame, text = "Tienda").place(x = 200, y = 200)
@@ -149,6 +173,33 @@ def Dashboard():
     Button(dashboardFrame, text = "Perfil", width = 10, command = Profile).place(x = 290, y = 500)
     Button(dashboardFrame, text = "Salir", width = 10, command = quit).place(x = 170, y = 550)
 
+
+def NewPaymenMethod():
+    root.title("Agregar Método de Pago")
+
+    profileFrame.pack_forget()
+
+    paymentFrame.config(width = "425", height = "852")
+    paymentFrame.pack()
+
+    Label(paymentFrame, text = "Nombre de la Tarjeta").place(x = 50, y = 200)
+    paymentNameEntry = Entry(paymentFrame, width = 20, borderwidth = 2)
+    paymentNameEntry.place(x = 200, y = 200)
+
+    Label(paymentFrame, text = "Tipo de Tarjeta").place(x = 50, y = 230)
+    cardType = Entry(paymentFrame, width = 20, borderwidth = 2)
+    cardType.place(x = 200, y = 230)
+
+    Label(paymentFrame, text = "Número de la Tarjeta").place(x = 50, y = 260)
+    cardNumber = Entry(paymentFrame, width = 20, borderwidth = 2)
+    cardNumber.place(x = 200, y = 260)
+
+    Label(paymentFrame, text = "Fecha de Expiración").place(x = 50, y = 290)
+    cardDate = Entry(paymentFrame, width = 20, borderwidth = 2)
+    cardDate.place(x = 200, y = 290)
+
+    Button(paymentFrame, text = "Guardar", command = Profile).place(x = 120, y = 390)
+    Button(paymentFrame, text = "Cancelar", command = Profile).place(x = 250, y = 390)
 
 Login()
 
