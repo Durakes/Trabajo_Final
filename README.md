@@ -22,4 +22,5 @@ Librerias: Tkinter, Pillow
 + Estilos generales
 + Lógica general
 + Logo
-
++ Gráficos en la pantalla de reportes
++ Páginas de reportes mas detalladas
