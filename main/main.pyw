@@ -1,5 +1,7 @@
 from tkinter import *
+import os
 from PIL import Image,ImageTk
+my_path = os.getcwd()
 root = Tk()
 root.resizable(0,0)
 
@@ -23,8 +25,9 @@ currentAmount = Label()
 
 # ! Variables de Profile
 
-
-
+visaLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Visa.png").resize((50,25), Image.ANTIALIAS))
+paypalLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Paypal.png").resize((52,20), Image.ANTIALIAS))
+mastercardLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Mastercard.png").resize((50,28), Image.ANTIALIAS))
 
 # ! Variables de Registro
 amountEntry = Entry()
@@ -106,17 +109,17 @@ def Profile():                  # Pantalla de perfil de usuario
 
     Label(profileFrame, text = "Cuentas asociadas:").place(x = 70, y = 250)
 
-    Label(profileFrame, text = "PAYPAL", bg = "white").place(x = 50, y = 320)
+    Label(profileFrame, image = paypalLogo).place(x = 50, y = 320)
     Label(profileFrame, text = "**** 1234", bg = "white").place(x = 110, y = 320)
     Label(profileFrame, text = "01/22", bg = "white").place(x = 170, y = 320)
     Button(profileFrame, text = "Borrar").place(x = 300, y = 320)
 
-    Label(profileFrame, text = "Visa", bg = "white").place(x = 50, y = 360)
+    Label(profileFrame, image = visaLogo).place(x = 50, y = 355)
     Label(profileFrame, text = "**** 1234", bg = "white").place(x = 110, y = 360)
     Label(profileFrame, text = "01/22", bg = "white").place(x = 170, y = 360)
     Button(profileFrame, text = "Borrar").place(x = 300, y = 360)
 
-    Label(profileFrame, text = "Master", bg = "white").place(x = 50, y = 400)
+    Label(profileFrame, image = mastercardLogo).place(x = 50, y = 400)
     Label(profileFrame, text = "**** 1234", bg = "white").place(x = 110, y = 400)
     Label(profileFrame, text = "01/22", bg = "white").place(x = 170, y = 400)
     Button(profileFrame, text = "Borrar").place(x = 300, y = 400)
