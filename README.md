@@ -12,3 +12,14 @@ Librerias: Tkinter, Pillow
 
 `pip install Pillow`
 
+## TODO
+
++ Mantener calidad de imagen al hacer resize
++ Librería para graficos Matplotlib (Posible)
++ Pantalla para poner el límite mensual --> Pop up
++ Pantalla de alerta --> Pop up
++ Confirmación para borrar método de pago --> Pop up
++ Estilos generales
++ Lógica general
++ Logo
+
