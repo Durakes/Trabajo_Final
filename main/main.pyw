@@ -11,6 +11,8 @@ registerFrame = Frame()
 loginFrame = Frame()
 profileFrame = Frame()
 paymentFrame = Frame()
+reportsFrame = Frame()
+
 
 # ! Variables de Login
 usernameEntry = Entry()
@@ -132,6 +134,7 @@ def Dashboard():            # Dashboard de los últimos movimientos realizados p
 
     root.title("Dashboard")
 
+    reportsFrame.pack_forget()
     loginFrame.pack_forget()
     profileFrame.pack_forget()
     registerFrame.pack_forget()
@@ -172,7 +175,7 @@ def Dashboard():            # Dashboard de los últimos movimientos realizados p
     Label(dashboardFrame, text = "$500", bg = "white").place(x = 340, y = 350)
 
     Button(dashboardFrame, text = "Registro", width = 10, command = Register).place(x = 50, y = 500)
-    Button(dashboardFrame, text = "Reportes", width = 10).place(x = 170, y = 500)
+    Button(dashboardFrame, text = "Reportes", width = 10, command = Reports).place(x = 170, y = 500)
     Button(dashboardFrame, text = "Perfil", width = 10, command = Profile).place(x = 290, y = 500)
     Button(dashboardFrame, text = "Salir", width = 10, command = quit).place(x = 170, y = 550)
 
@@ -204,6 +207,48 @@ def NewPaymenMethod():
     Button(paymentFrame, text = "Guardar", command = Profile).place(x = 120, y = 390)
     Button(paymentFrame, text = "Cancelar", command = Profile).place(x = 250, y = 390)
 
+def Reports():
+    root.title("Reporte Mensual")
+
+    dashboardFrame.pack_forget()
+
+    reportsFrame.config(width = "425", height = "852")
+    reportsFrame.pack()
+
+    Label(reportsFrame, text = "Reporte Mensual").place(x = 20, y = 20)
+    Label(reportsFrame, text = "Octubre").place(x = 20, y = 50)
+    Label(reportsFrame, text = "Categorías").place(x = 300, y = 50)
+
+    Label(reportsFrame, text = "Entretenimiento", bg = "white").place(x = 20, y = 250)
+    Label(reportsFrame, text = "Comida", bg = "white").place(x = 125, y = 250)
+    Label(reportsFrame, text = "Ropa", bg = "white").place(x = 195, y = 250)
+    Label(reportsFrame, text = "Educación", bg = "white").place(x = 255, y = 250)
+    Label(reportsFrame, text = "Otros", bg = "white").place(x = 340, y = 250)
+
+    Label(reportsFrame, text = "Métodos de pago mas usados").place(x = 50, y = 300)
+
+    Label(reportsFrame, text = "Paypal", bg = "white").place(x = 20, y = 350)
+    Label(reportsFrame, text = "Visa", bg = "white").place(x = 20, y = 400)
+    Label(reportsFrame, text = "MasterCard", bg = "white").place(x = 20, y = 450)
+
+    Label(reportsFrame, text = "Resumen gasto total de los últimos 5 meses").place(x = 50, y = 520)
+
+    Label(reportsFrame, text = "Septiembre").place(x = 50, y = 570)
+    Label(reportsFrame, text = "$150000").place(x = 250, y = 570)
+
+    Label(reportsFrame, text = "Agosto").place(x = 50, y = 620)
+    Label(reportsFrame, text = "$150000").place(x = 250, y = 620)
+
+    Label(reportsFrame, text = "Julio").place(x = 50, y = 670)
+    Label(reportsFrame, text = "$150000").place(x = 250, y = 670)
+
+    Label(reportsFrame, text = "Junio").place(x = 50, y = 720)
+    Label(reportsFrame, text = "$150000").place(x = 250, y = 720)
+
+    Label(reportsFrame, text = "Mayo").place(x = 50, y = 770)
+    Label(reportsFrame, text = "$150000").place(x = 250, y = 770)
+
+    Button(reportsFrame, text = "Volver", width = 20, command = Dashboard).place(x = 120, y = 810)
 Login()
 
 root.mainloop() 
