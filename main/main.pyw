@@ -1,6 +1,10 @@
 from tkinter import *
 import os
+from tkinter import ttk
 from PIL import Image,ImageTk
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 my_path = os.getcwd()
 root = Tk()
 root.resizable(0,0)
@@ -12,7 +16,6 @@ loginFrame = Frame()
 profileFrame = Frame()
 paymentFrame = Frame()
 reportsFrame = Frame()
-
 
 # ! Variables de Login
 usernameEntry = Entry()
@@ -38,6 +41,19 @@ categoryEntry = Entry()
 paymentEntry = Entry()
 dateEntry = Entry()
 
+#! Variables de Reportes
+testList = [["Enero",2000,20], ["Febrero",1000, 10], ["Marzo",1000, 10], ["Abril",1000, 10], ["Mayo",1000, 10], ["Junio",1000, 10], ["Julio",1000, 10], ["Agosto",1000, 10], ["Septiembre",1000, 10], ["Octubre",1000, 10], ["Noviembre",1000, 10], ["Diciembre",1000, 10]]
+payments = ["Visa", "Master\nCard", "Paypal"]
+categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
+colors = ["red", "blue", "green", "yellow", "black"]
+colors2 = ["red", "blue", "green"]
+months = ["Septiembre", "Octubre", "Noviembre", "Diciembre", "Enero"]
+amounts = [10, 20, 30, 10, 50]
+amounts2 = [3000, 100, 450]
+
+def quit_me():
+    root.quit()
+    root.destroy()
 
 def Login():                    # Primera pantalla de login
     root.title("Login")
@@ -45,7 +61,7 @@ def Login():                    # Primera pantalla de login
     loginFrame.config(width = "425", height = "852")
     loginFrame.pack()
     
-    Label(loginFrame, text = "Logo").place(x = 180, y = 150)
+    Label(loginFrame, text = "Logo").place(relx = 0.5, rely = 0.2)
     Label(loginFrame, text = "Username").place(x = 90, y = 200)
     Label(loginFrame, text = "Password").place(x = 90, y = 230)
 
@@ -94,7 +110,6 @@ def Register():                 # Pantalla de registro de nuevo gasto
     Button(registerFrame, text = "Guardar", width = 10, command = Dashboard).place(x = 80, y = 450)
     Button(registerFrame, text = "Cancelar", width = 10, command = Dashboard).place(x = 250, y = 450)
 
-
 def Profile():                  # Pantalla de perfil de usuario
     root.title("Profile")
 
@@ -128,7 +143,6 @@ def Profile():                  # Pantalla de perfil de usuario
 
     Button(profileFrame, text = "Agregar nuevo método de pago", command = NewPaymenMethod).place(x = 110, y = 450)
     Button(profileFrame, text = "Volver", command = Dashboard).place(x = 180, y = 500 )
-
 
 def Dashboard():            # Dashboard de los últimos movimientos realizados por el usuario
 
@@ -179,7 +193,6 @@ def Dashboard():            # Dashboard de los últimos movimientos realizados p
     Button(dashboardFrame, text = "Perfil", width = 10, command = Profile).place(x = 290, y = 500)
     Button(dashboardFrame, text = "Salir", width = 10, command = quit).place(x = 170, y = 550)
 
-
 def NewPaymenMethod():
     root.title("Agregar Método de Pago")
 
@@ -208,6 +221,8 @@ def NewPaymenMethod():
     Button(paymentFrame, text = "Cancelar", command = Profile).place(x = 250, y = 390)
 
 def Reports():
+
+    #TODO Alinear elementos
     root.title("Reporte Mensual")
 
     dashboardFrame.pack_forget()
@@ -216,39 +231,52 @@ def Reports():
     reportsFrame.pack()
 
     Label(reportsFrame, text = "Reporte Mensual").place(x = 20, y = 20)
-    Label(reportsFrame, text = "Octubre").place(x = 20, y = 50)
-    Label(reportsFrame, text = "Categorías").place(x = 300, y = 50)
+    Label(reportsFrame, text = "Octubre").place(x = 320, y = 20)
 
-    Label(reportsFrame, text = "Entretenimiento", bg = "white").place(x = 20, y = 250)
-    Label(reportsFrame, text = "Comida", bg = "white").place(x = 125, y = 250)
-    Label(reportsFrame, text = "Ropa", bg = "white").place(x = 195, y = 250)
-    Label(reportsFrame, text = "Educación", bg = "white").place(x = 255, y = 250)
-    Label(reportsFrame, text = "Otros", bg = "white").place(x = 340, y = 250)
+    categoriesReport, catGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
+    categoriesReport.suptitle("Reporte Mensual por categorías")
+    catGraph.bar(categories, amounts)
+    catGraph.set_ylim(0, max(amounts)*1.2)
+    for i in range(len(categories)):
+        catGraph.text(i, amounts[i], amounts[i], ha = "center", va= "bottom")
+
+    categoriesCanvas = FigureCanvasTkAgg(categoriesReport, master = reportsFrame)
+    categoriesCanvas.draw()
+    categoriesCanvas.get_tk_widget().place(x = 20, y = 60)
 
     Label(reportsFrame, text = "Métodos de pago mas usados").place(x = 50, y = 300)
 
-    Label(reportsFrame, text = "Paypal", bg = "white").place(x = 20, y = 350)
-    Label(reportsFrame, text = "Visa", bg = "white").place(x = 20, y = 400)
-    Label(reportsFrame, text = "MasterCard", bg = "white").place(x = 20, y = 450)
+    paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,2.3), sharey = True, facecolor = "#f0f0ed")
+    paymentMethodsReport.suptitle("Reporte Mensual por categorías")
+    payGraph.barh(payments, amounts2)
+
+    payGraph.set_xlim(0, max(amounts2)*1.2)
+    for i in range(len(payments)):
+        payGraph.text(amounts2[i], i, amounts2[i], ha = "left", va= "center")
+
+    paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = reportsFrame)
+    paymentsCanvas .draw()
+    paymentsCanvas .get_tk_widget().place(x = 20, y = 330)
 
     Label(reportsFrame, text = "Resumen gasto total de los últimos 5 meses").place(x = 50, y = 520)
 
-    Label(reportsFrame, text = "Septiembre").place(x = 50, y = 570)
-    Label(reportsFrame, text = "$150000").place(x = 250, y = 570)
+    lastMonthTable = ttk.Treeview(reportsFrame, columns = (1,2,3), show = "headings", height = "12")
 
-    Label(reportsFrame, text = "Agosto").place(x = 50, y = 620)
-    Label(reportsFrame, text = "$150000").place(x = 250, y = 620)
+    lastMonthTable.place(x = 50, y = 550)
 
-    Label(reportsFrame, text = "Julio").place(x = 50, y = 670)
-    Label(reportsFrame, text = "$150000").place(x = 250, y = 670)
+    lastMonthTable.column(1, width = 100)
+    lastMonthTable.column(2, width=100, anchor=CENTER)
+    lastMonthTable.column(3, width=100, anchor=CENTER)
 
-    Label(reportsFrame, text = "Junio").place(x = 50, y = 720)
-    Label(reportsFrame, text = "$150000").place(x = 250, y = 720)
+    lastMonthTable.heading(1, text = "Mes")
+    lastMonthTable.heading(2, text = "Total Gastado")
+    lastMonthTable.heading(3, text = "Diferencia")
 
-    Label(reportsFrame, text = "Mayo").place(x = 50, y = 770)
-    Label(reportsFrame, text = "$150000").place(x = 250, y = 770)
+    for i in range(len(testList)):
+        lastMonthTable.insert("", "end", values=testList[i])
 
     Button(reportsFrame, text = "Volver", width = 20, command = Dashboard).place(x = 120, y = 810)
 Login()
 
+root.protocol("WM_DELETE_WINDOW", quit_me)
 root.mainloop() 

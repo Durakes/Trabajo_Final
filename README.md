@@ -1,26 +1,23 @@
 # Trabajo Final Algoritmos Y Estructuras de Programación
 
-Versión: Python 3.9.5
+Versiones: 
++ Python 3.9.5
++ Tkinter 8.6
 
-Librerias: Tkinter, Pillow
+Librerias: Tkinter, Pillow, Matplotlib
 
 ## Paso a paso
 + Clonar repositorio
 + Instalar las librerías necesarias 
 
 ## Instalación librería Pillow:
-
 `pip install Pillow`
+`pip install matplotlib`
 
 ## TODO
-
-+ Mantener calidad de imagen al hacer resize
-+ Librería para graficos Matplotlib (Posible)
 + Pantalla para poner el límite mensual --> Pop up
 + Pantalla de alerta --> Pop up
 + Confirmación para borrar método de pago --> Pop up
-+ Estilos generales
-+ Lógica general
 + Logo
-+ Gráficos en la pantalla de reportes
 + Páginas de reportes mas detalladas
++ Reportes espaciados
