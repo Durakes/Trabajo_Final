@@ -4,7 +4,7 @@ Versiones:
 + Python 3.9.5
 + Tkinter 8.6
 
-Librerias: Tkinter, Pillow, Matplotlib
+Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 
 ## Paso a paso
 + Clonar repositorio
@@ -13,6 +13,8 @@ Librerias: Tkinter, Pillow, Matplotlib
 ## Instalación librería Pillow:
 `pip install Pillow`
 `pip install matplotlib`
+`pip install tkcalendar`
+
 
 ## TODO
 + Pantalla para poner el límite mensual --> Pop up
@@ -21,3 +23,5 @@ Librerias: Tkinter, Pillow, Matplotlib
 + Logo
 + Páginas de reportes mas detalladas
 + Reportes espaciados
++ Tipo de Moneda
++ Reporte por tienda
