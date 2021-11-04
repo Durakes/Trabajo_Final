@@ -3,6 +3,7 @@ from tkinter import ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import windows_app.dashboard_window as dw
+import windows_app.register_window as registers
 
 testList = [["Enero",2000,20], ["Febrero",1000, 10], ["Marzo",1000, 10], ["Abril",1000, 10], ["Mayo",1000, 10], ["Junio",1000, 10], ["Julio",1000, 10], ["Agosto",1000, 10], ["Septiembre",1000, 10], ["Octubre",1000, 10], ["Noviembre",1000, 10], ["Diciembre",1000, 10]]
 payments = ["Visa", "Master\nCard", "Paypal"]
@@ -10,11 +11,10 @@ categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
 colors = ["red", "blue", "green", "yellow", "black"]
 colors2 = ["red", "blue", "green"]
 months = ["Septiembre", "Octubre", "Noviembre", "Diciembre", "Enero"]
-amounts = [10, 20, 30, 10, 50]
-amounts2 = [3000, 100, 450]
+amounts = []
+amounts2 = []
 
 def Reports(root, mainFrame):
-
     #TODO Alinear elementos
     root.title("Reporte Mensual")
     mainFrame.destroy()
@@ -37,7 +37,15 @@ def Reports(root, mainFrame):
 
     Button(mainFrame, text = "Volver", width = 20, command = lambda: dw.Dashboard(root, mainFrame)).place(x = 120, y = 810)
 
+
 def CreateGraphV(mainFrame):
+    global amounts
+    amounts = [registers.categoriesDictionary["Entretenimiento"], 
+                registers.categoriesDictionary["Comida"], 
+                registers.categoriesDictionary["Educación"], 
+                registers.categoriesDictionary["Ropa"], 
+                registers.categoriesDictionary["Otros"]]
+
     categoriesReport, catGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     categoriesReport.suptitle("Reporte mensual por categorías")
     catGraph.bar(categories, amounts)
@@ -49,7 +57,13 @@ def CreateGraphV(mainFrame):
     categoriesCanvas.draw()
     categoriesCanvas.get_tk_widget().place(x = 20, y = 60)
 
+
 def CreateGraphH(mainFrame):
+    global amounts2
+    amounts2 = [registers.paymentsDictionary["Visa"], 
+                registers.paymentsDictionary["MasterCard"], 
+                registers.paymentsDictionary["Paypal"]]
+    
     paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,2.3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
     payGraph.barh(payments, amounts2)
@@ -59,13 +73,14 @@ def CreateGraphH(mainFrame):
         payGraph.text(amounts2[i], i, amounts2[i], ha = "left", va= "center")
 
     paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = mainFrame)
-    paymentsCanvas .draw()
-    paymentsCanvas .get_tk_widget().place(x = 20, y = 330)
+    paymentsCanvas.draw()
+    paymentsCanvas.get_tk_widget().place(x = 20, y = 330)
+
 
 def CreateTable(mainFrame):
     lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2,3), show = "headings", height = "10")
 
-    lastMonthTable.place(x = 50, y = 550)
+    lastMonthTable.place(x=50, y=550)
 
     lastMonthTable.column(1, width = 100)
     lastMonthTable.column(2, width=100, anchor=CENTER)
