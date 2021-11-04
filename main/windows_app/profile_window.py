@@ -7,10 +7,6 @@ from PIL import Image, ImageTk
 my_path = os.getcwd()
 print(my_path)
 
-visaLogo = None
-paypalLogo = None
-mastercardLogo = None
-
 def Profile(root, mainFrame):
 
     root.title("Profile")
@@ -20,11 +16,11 @@ def Profile(root, mainFrame):
     mainFrame.config(width = "425", height = "852")
     mainFrame.pack()
     global visaLogo 
-    visaLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Visa.png").resize((50,25), Image.ANTIALIAS))
+    visaLogo = ImageTk.PhotoImage(Image.open(my_path + "\images\Visa.png").resize((50,25), Image.ANTIALIAS))
     global paypalLogo 
-    paypalLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Paypal.png").resize((52,20), Image.ANTIALIAS))
+    paypalLogo = ImageTk.PhotoImage(Image.open(my_path + "\images\Paypal.png").resize((52,20), Image.ANTIALIAS))
     global mastercardLogo
-    mastercardLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Mastercard.png").resize((50,28), Image.ANTIALIAS))
+    mastercardLogo = ImageTk.PhotoImage(Image.open(my_path + "\images\Mastercard.png").resize((50,28), Image.ANTIALIAS))
 
     Label(mainFrame, text = "Perfil").place(x = 190, y = 50)
     Label(mainFrame, text = "Nombre: ").place(x = 200, y = 100)
