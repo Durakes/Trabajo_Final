@@ -1,0 +1,17 @@
+S/.210,Comida,MasterCard,2021-11-09,Amazon
+S/.250,Comida,MasterCard,2021-11-04,Amazon
+S/.320,Otros,MasterCard,2021-11-01,Spotify
+S/.230,Educación,Visa,2021-11-04,Amazon
+S/.230,Educación,Paypal,2021-11-01,Loló
+S/.120,Otros,MasterCard,2021-10-11,Amazon
+S/.120,Comida,Visa,2021-11-09,Amazon
+S/.120,Comida,MasterCard,2021-11-07,Amazon
+S/.210,Ropa,Paypal,2021-11-01,Platzi
+S/.410,Ropa,MasterCard,2021-11-03,Usil
+S/.410,Ropa,Paypal,2021-11-02,UPC
+S/.410,Otros,Visa,2021-11-15,Bembos
+S/.140,Educación,Visa,2021-11-07,USIL
+S/.322,Comida,MasterCard,2021-11-01,Wong
+S/.420,Ropa,Visa,2021-11-01,Metro
+S/.250,Otros,Paypal,2021-11-02,Xiaomi
+S/.740,Entretenimiento,Visa,2021-11-07,Huawei

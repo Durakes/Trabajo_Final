@@ -3,16 +3,58 @@ from tkinter import ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import windows_app.dashboard_window as dw
-import windows_app.register_window as registers
+import os
 
 testList = [["Enero",2000,20], ["Febrero",1000, 10], ["Marzo",1000, 10], ["Abril",1000, 10], ["Mayo",1000, 10], ["Junio",1000, 10], ["Julio",1000, 10], ["Agosto",1000, 10], ["Septiembre",1000, 10], ["Octubre",1000, 10], ["Noviembre",1000, 10], ["Diciembre",1000, 10]]
 payments = ["Visa", "Master\nCard", "Paypal"]
 categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
-colors = ["red", "blue", "green", "yellow", "black"]
-colors2 = ["red", "blue", "green"]
 months = ["Septiembre", "Octubre", "Noviembre", "Diciembre", "Enero"]
 amounts = []
 amounts2 = []
+
+def CreateList():
+    my_path = os.getcwd()
+    file = open(my_path + r"\main\db\registers.txt", "r", encoding="UTF-8")
+
+    registers_ = file.readlines()
+
+    for i in range (len(registers_)):
+        registers_[i] = registers_[i].split(",")
+    file.close()
+
+    for i in range(len(registers_)):
+        registers_[i][4] = registers_[i][4][:-1]
+    
+    for i in range(len(registers_)):
+        registers_[i][0] = registers_[i][0][3:]
+
+    return registers_
+
+def CreateCategoryDic():
+    registers_ = CreateList()
+    categories_ = ["Entretenimiento","Comida", "Educación", "Ropa", "Otros"]
+
+    categoriesDictionary = {category : 0 for category in categories_}
+    
+    for i in range(len(registers_)):
+        for name in categoriesDictionary:
+            if name == registers_[i][1]:
+                categoriesDictionary[name] = categoriesDictionary[name] + int(registers_[i][0])
+
+    return categoriesDictionary
+
+def CreatePaymentDic():
+    registers_ = CreateList()
+    payments_ = ["Visa", "MasterCard", "Paypal"]
+
+    paymentsDictionary = {payment : 0 for payment in payments_}
+
+    for i in range(len(registers_)):
+        for name in paymentsDictionary:
+            if name == registers_[i][2]:
+                paymentsDictionary[name] = paymentsDictionary[name] + int(registers_[i][0])
+
+    return paymentsDictionary
 
 def Reports(root, mainFrame):
     #TODO Alinear elementos
@@ -37,14 +79,15 @@ def Reports(root, mainFrame):
 
     Button(mainFrame, text = "Volver", width = 20, command = lambda: dw.Dashboard(root, mainFrame)).place(x = 120, y = 810)
 
-
 def CreateGraphV(mainFrame):
+    categoriesDictionary = CreateCategoryDic()
+
     global amounts
-    amounts = [registers.categoriesDictionary["Entretenimiento"], 
-                registers.categoriesDictionary["Comida"], 
-                registers.categoriesDictionary["Educación"], 
-                registers.categoriesDictionary["Ropa"], 
-                registers.categoriesDictionary["Otros"]]
+    amounts = [categoriesDictionary["Entretenimiento"], 
+                categoriesDictionary["Comida"], 
+                categoriesDictionary["Educación"], 
+                categoriesDictionary["Ropa"], 
+                categoriesDictionary["Otros"]]
 
     categoriesReport, catGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     categoriesReport.suptitle("Reporte mensual por categorías")
@@ -57,12 +100,13 @@ def CreateGraphV(mainFrame):
     categoriesCanvas.draw()
     categoriesCanvas.get_tk_widget().place(x = 20, y = 60)
 
-
 def CreateGraphH(mainFrame):
+    paymentsDictionary = CreatePaymentDic()
+    
     global amounts2
-    amounts2 = [registers.paymentsDictionary["Visa"], 
-                registers.paymentsDictionary["MasterCard"], 
-                registers.paymentsDictionary["Paypal"]]
+    amounts2 = [paymentsDictionary["Visa"], 
+                paymentsDictionary["MasterCard"], 
+                paymentsDictionary["Paypal"]]
     
     paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,2.3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
@@ -75,7 +119,6 @@ def CreateGraphH(mainFrame):
     paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = mainFrame)
     paymentsCanvas.draw()
     paymentsCanvas.get_tk_widget().place(x = 20, y = 330)
-
 
 def CreateTable(mainFrame):
     lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2,3), show = "headings", height = "10")

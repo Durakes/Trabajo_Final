@@ -2,21 +2,23 @@ from tkinter import *
 from tkinter import ttk
 from tkcalendar import *
 import windows_app.dashboard_window as dw
+import os
 
 #! Variables
 totalSpend = 0
 date_ = None
 amount = None
 store = None
+
 categoriesDictionary = {"Entretenimiento" : 0, "Comida" : 0, "Educación" : 0, "Ropa" : 0, "Otros" : 0}
 paymentsDictionary = {"Visa": 0, "MasterCard": 0, "Paypal": 0}
+
 categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 paymentsNames = ["Visa", "MasterCard", "Paypal"]
 newRegister = None
 paymentAmount = []
 
-
-def Register(root, mainFrame):                 # Pantalla de registro de nuevo gasto
+def Register(root, mainFrame):
     root.title("Register")
     global amountEntry
     amountEntry = StringVar()
@@ -86,7 +88,8 @@ def GetRegisters(root, mainFrame):
 
     global newRegister
     newRegister = [date_, store, amount]
-
-    dw.shownRegisters.insert(0, newRegister)
-    dw.shownRegisters.pop()
+    my_path = os.getcwd()
+    file = open(my_path + r"\main\db\registers.txt", "a", encoding="UTF-8")
+    file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(store) + "\n")
+    file.close()
     dw.Dashboard(root, mainFrame)
