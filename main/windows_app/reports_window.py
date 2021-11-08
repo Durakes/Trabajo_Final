@@ -32,7 +32,7 @@ def CreateList():
 
 def CreateCategoryDic():
     registers_ = CreateList()
-    categories_ = ["Entretenimiento","Comida", "Educación", "Ropa", "Otros"]
+    categories_ = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
     categoriesDictionary = {category : 0 for category in categories_}
     

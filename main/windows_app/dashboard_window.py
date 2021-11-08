@@ -1,4 +1,6 @@
 from tkinter import *
+
+from matplotlib.pyplot import text
 import windows_app.register_window as rw
 import windows_app.reports_window as rpw
 import windows_app.profile_window as pw
@@ -35,6 +37,8 @@ def Dashboard(root, mainFrame):
     Label(mainFrame, text = "Usted está gastando en el mes: ").place(x = 120, y = 100)
     currentAmount = Label(mainFrame, text = str(rw.totalSpend))
     currentAmount.place(x = 170, y = 120)
+
+    Label(mainFrame, text = "Últimos 5 gastos registrados: ").place(x = 50, y = 160)
 
     Label(mainFrame, text = "Fecha").place(x = 50, y = 200)
     Label(mainFrame, text = "Tienda").place(x = 200, y = 200)
