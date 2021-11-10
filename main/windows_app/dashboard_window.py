@@ -1,26 +1,40 @@
 from tkinter import *
-
-from matplotlib.pyplot import text
-import windows_app.register_window as rw
-import windows_app.reports_window as rpw
-import windows_app.profile_window as pw
+import windows_app.register_window as register_w
+import windows_app.reports_window as reports_w
+import windows_app.profile_window as profile_w
 import os
+from datetime import date
 
 shownRegisters = []
-def CreateList():
+#TODO juntar fors General List y Total Month spent
+def CreateGeneralList():
     my_path = os.getcwd()
-    file = open(my_path + r"\main\db\registers.txt", "r", encoding="UTF-8")
+    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
 
     registers_ = file.readlines()
     for i in range (len(registers_)):
         registers_[i]=registers_[i].split(",")
     file.close()
+    return registers_
+
+def CreateDashList():
+    registers_ = CreateGeneralList()
     shownRegisters = registers_[-5:]
 
     for i in range (len(shownRegisters)):
-        shownRegisters[i][4] = shownRegisters[i][4][:-1]
+        shownRegisters[i][5] = shownRegisters[i][5][:-1]
     
     return shownRegisters
+
+def TotalMonthSpent():
+    registers_ = CreateGeneralList()
+    amount = 0
+    for i in range(len(registers_)):
+        if date.today().month == int(registers_[i][4]):
+            amount = amount + int(registers_[i][0])
+
+    return amount
+
 
 def Dashboard(root, mainFrame):
     root.title("Dashboard")
@@ -29,13 +43,14 @@ def Dashboard(root, mainFrame):
     mainFrame.config(width = "425", height = "852")
     mainFrame.pack()
     
-    shownRegisters = CreateList()
+    amount = TotalMonthSpent()
+    shownRegisters = CreateDashList()
 
     Label(mainFrame, text = "Límite establecido: ").place(x = 150, y = 30)
     Label(mainFrame, text ="10000").place(x = 170, y = 50)
 
     Label(mainFrame, text = "Usted está gastando en el mes: ").place(x = 120, y = 100)
-    currentAmount = Label(mainFrame, text = str(rw.totalSpend))
+    currentAmount = Label(mainFrame, text = amount)
     currentAmount.place(x = 170, y = 120)
 
     Label(mainFrame, text = "Últimos 5 gastos registrados: ").place(x = 50, y = 160)
@@ -44,27 +59,14 @@ def Dashboard(root, mainFrame):
     Label(mainFrame, text = "Tienda").place(x = 200, y = 200)
     Label(mainFrame, text = "Monto").place(x = 340, y = 200)
 
-    Label(mainFrame, text = shownRegisters[4][3], bg = "white").place(x = 50, y = 230)
-    Label(mainFrame, text = shownRegisters[4][4], bg = "white").place(x = 200, y = 230)
-    Label(mainFrame, text = shownRegisters[4][0], bg = "white").place(x = 340, y = 230)
+    positiony = 230
+    for i in range(len(shownRegisters)-1,-1,-1):
+        Label(mainFrame, text = shownRegisters[i][3], bg = "white").place(x = 50, y = positiony)
+        Label(mainFrame, text = shownRegisters[i][5], bg = "white").place(x = 200, y = positiony)
+        Label(mainFrame, text = "S/." + shownRegisters[i][0], bg = "white").place(x = 340, y = positiony)
+        positiony = positiony + 30
 
-    Label(mainFrame, text = shownRegisters[3][3], bg = "white").place(x = 50, y = 260)
-    Label(mainFrame, text = shownRegisters[3][4], bg = "white").place(x = 200, y = 260)
-    Label(mainFrame, text = shownRegisters[3][0], bg = "white").place(x = 340, y = 260)
-
-    Label(mainFrame, text = shownRegisters[2][3], bg = "white").place(x = 50, y = 290)
-    Label(mainFrame, text = shownRegisters[2][4], bg = "white").place(x = 200, y = 290)
-    Label(mainFrame, text = shownRegisters[2][0], bg = "white").place(x = 340, y = 290)
-
-    Label(mainFrame, text = shownRegisters[1][3], bg = "white").place(x = 50, y = 320)
-    Label(mainFrame, text = shownRegisters[1][4], bg = "white").place(x = 200, y = 320)
-    Label(mainFrame, text = shownRegisters[1][0], bg = "white").place(x = 340, y = 320)
-
-    Label(mainFrame, text = shownRegisters[0][3], bg = "white").place(x = 50, y = 350)
-    Label(mainFrame, text = shownRegisters[0][4], bg = "white").place(x = 200, y = 350)
-    Label(mainFrame, text = shownRegisters[0][0], bg = "white").place(x = 340, y = 350)
-
-    Button(mainFrame, text = "Registro", width = 10, command = lambda: rw.Register(root, mainFrame)).place(x = 50, y = 500)
-    Button(mainFrame, text = "Reportes", width = 10, command = lambda: rpw.Reports(root, mainFrame)).place(x = 170, y = 500)
-    Button(mainFrame, text = "Perfil", width = 10, command = lambda: pw.Profile(root, mainFrame)).place(x = 290, y = 500)
+    Button(mainFrame, text = "Registro", width = 10, command = lambda: register_w.Register(root, mainFrame)).place(x = 50, y = 500)
+    Button(mainFrame, text = "Reportes", width = 10, command = lambda: reports_w.Reports(root, mainFrame)).place(x = 170, y = 500)
+    Button(mainFrame, text = "Perfil", width = 10, command = lambda: profile_w.Profile(root, mainFrame)).place(x = 290, y = 500)
     Button(mainFrame, text = "Salir", width = 10, command = quit).place(x = 170, y = 550)
