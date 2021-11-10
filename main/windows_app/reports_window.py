@@ -2,10 +2,11 @@ from tkinter import *
 from tkinter import ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import windows_app.dashboard_window as dw
+import windows_app.dashboard_window as dashboard_w
 import os
+from datetime import date
 
-testList = [["Enero",2000,20], ["Febrero",1000, 10], ["Marzo",1000, 10], ["Abril",1000, 10], ["Mayo",1000, 10], ["Junio",1000, 10], ["Julio",1000, 10], ["Agosto",1000, 10], ["Septiembre",1000, 10], ["Octubre",1000, 10], ["Noviembre",1000, 10], ["Diciembre",1000, 10]]
+monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 7:"Julio", 8:"Agosto", 9:"Septiembre", 10:"Octubre", 11:"Noviembre", 12:"Diciembre"}
 payments = ["Visa", "Master\nCard", "Paypal"]
 categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
 months = ["Septiembre", "Octubre", "Noviembre", "Diciembre", "Enero"]
@@ -14,7 +15,7 @@ amounts2 = []
 
 def CreateList():
     my_path = os.getcwd()
-    file = open(my_path + r"\main\db\registers.txt", "r", encoding="UTF-8")
+    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
 
     registers_ = file.readlines()
 
@@ -22,13 +23,25 @@ def CreateList():
         registers_[i] = registers_[i].split(",")
     file.close()
 
-    for i in range(len(registers_)):
-        registers_[i][4] = registers_[i][4][:-1]
-    
-    for i in range(len(registers_)):
-        registers_[i][0] = registers_[i][0][3:]
+    #? Por si se necesita leer las tiendas luego
+    #!for i in range(len(registers_)):
+        #!registers_[i][4] = registers_[i][4][:-1]
 
     return registers_
+
+def CreateTableValues():
+    testList = [["Enero",0], ["Febrero",0], ["Marzo",0], ["Abril",0], ["Mayo",0], ["Junio",0], ["Julio",0], ["Agosto",0], ["Septiembre",0], ["Octubre",0], ["Noviembre",0], ["Diciembre",0]]
+
+    registers_ = CreateList()
+
+    for i in range (len(registers_)):
+        for number in monthDic:
+            if number == int(registers_[i][4]):
+                for j in range(len(testList)):
+                    if testList[j][0] == monthDic[number]:
+                        testList[j][1] = testList[j][1] + int(registers_[i][0])
+    
+    return testList
 
 def CreateCategoryDic():
     registers_ = CreateList()
@@ -37,9 +50,10 @@ def CreateCategoryDic():
     categoriesDictionary = {category : 0 for category in categories_}
     
     for i in range(len(registers_)):
-        for name in categoriesDictionary:
-            if name == registers_[i][1]:
-                categoriesDictionary[name] = categoriesDictionary[name] + int(registers_[i][0])
+        if int(registers_[i][4]) == date.today().month:
+            for name in categoriesDictionary:
+                if name == registers_[i][1]:
+                    categoriesDictionary[name] = categoriesDictionary[name] + int(registers_[i][0])
 
     return categoriesDictionary
 
@@ -50,9 +64,10 @@ def CreatePaymentDic():
     paymentsDictionary = {payment : 0 for payment in payments_}
 
     for i in range(len(registers_)):
-        for name in paymentsDictionary:
-            if name == registers_[i][2]:
-                paymentsDictionary[name] = paymentsDictionary[name] + int(registers_[i][0])
+        if int(registers_[i][4]) == date.today().month:
+            for name in paymentsDictionary:
+                if name == registers_[i][2]:
+                    paymentsDictionary[name] = paymentsDictionary[name] + int(registers_[i][0])
 
     return paymentsDictionary
 
@@ -65,7 +80,7 @@ def Reports(root, mainFrame):
     mainFrame.pack()
 
     Label(mainFrame, text = "Reporte Mensual").place(x = 20, y = 20)
-    Label(mainFrame, text = "Octubre").place(x = 320, y = 20)
+    Label(mainFrame, text = monthDic[date.today().month]).place(x = 320, y = 20)
 
     CreateGraphV(mainFrame)
 
@@ -77,7 +92,7 @@ def Reports(root, mainFrame):
 
     CreateTable(mainFrame)
 
-    Button(mainFrame, text = "Volver", width = 20, command = lambda: dw.Dashboard(root, mainFrame)).place(x = 120, y = 810)
+    Button(mainFrame, text = "Volver", width = 20, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 125, y = 810)
 
 def CreateGraphV(mainFrame):
     categoriesDictionary = CreateCategoryDic()
@@ -121,17 +136,16 @@ def CreateGraphH(mainFrame):
     paymentsCanvas.get_tk_widget().place(x = 20, y = 330)
 
 def CreateTable(mainFrame):
-    lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2,3), show = "headings", height = "10")
+    monthList = CreateTableValues()
+    lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2), show = "headings", height = "10")
 
-    lastMonthTable.place(x=50, y=550)
+    lastMonthTable.place(x=110, y=550)
 
     lastMonthTable.column(1, width = 100)
     lastMonthTable.column(2, width=100, anchor=CENTER)
-    lastMonthTable.column(3, width=100, anchor=CENTER)
 
     lastMonthTable.heading(1, text = "Mes")
     lastMonthTable.heading(2, text = "Total Gastado")
-    lastMonthTable.heading(3, text = "Diferencia")
 
-    for i in range(len(testList)):
-        lastMonthTable.insert("", "end", values=testList[i])
+    for i in range(len(monthList)):
+        lastMonthTable.insert("", "end", values=monthList[i])
