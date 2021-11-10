@@ -1,12 +1,12 @@
 from tkinter import *
 import os
-import windows_app.login_window as lg
+import windows_app.login_window as login_w
 
 my_path = os.getcwd()
 root = Tk()
 root.resizable(0,0)
 mainFrame = Frame(root)
-lg.Login(root, mainFrame)
+login_w.Login(root, mainFrame)
 
 def quit_me():
     root.quit()

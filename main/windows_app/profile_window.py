@@ -1,6 +1,6 @@
 from tkinter import *
-import windows_app.dashboard_window as dw
-import windows_app.newPayment_window as npw
+import windows_app.dashboard_window as dashboard_w
+import windows_app.newPayment_window as payment_w
 import os
 from PIL import Image, ImageTk
 
@@ -43,5 +43,5 @@ def Profile(root, mainFrame):
     Label(mainFrame, text = "01/22", bg = "white").place(x = 170, y = 400)
     Button(mainFrame, text = "Borrar").place(x = 300, y = 400)
 
-    Button(mainFrame, text = "Agregar nuevo método de pago", command = lambda: npw.NewPaymenMethod(root, mainFrame)).place(x = 110, y = 450)
-    Button(mainFrame, text = "Volver", command = lambda: dw.Dashboard(root, mainFrame)).place(x = 180, y = 500 )
+    Button(mainFrame, text = "Agregar nuevo método de pago", command = lambda: payment_w.NewPaymenMethod(root, mainFrame)).place(x = 110, y = 450)
+    Button(mainFrame, text = "Volver", command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 180, y = 500 )

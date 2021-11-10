@@ -1,5 +1,5 @@
 from tkinter import *
-import windows_app.profile_window as pw
+import windows_app.profile_window as profile_w
 
 def NewPaymenMethod(root, mainFrame):
     root.title("Agregar Método de Pago")
@@ -25,5 +25,5 @@ def NewPaymenMethod(root, mainFrame):
     cardDate = Entry(mainFrame, width = 20, borderwidth = 2)
     cardDate.place(x = 200, y = 290)
 
-    Button(mainFrame, text = "Guardar", command = lambda: pw.Profile(root, mainFrame)).place(x = 120, y = 390)
-    Button(mainFrame, text = "Cancelar", command = lambda: pw.Profile(root, mainFrame)).place(x = 250, y = 390)
+    Button(mainFrame, text = "Guardar", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 120, y = 390)
+    Button(mainFrame, text = "Cancelar", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 250, y = 390)
