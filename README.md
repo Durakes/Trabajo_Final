@@ -25,8 +25,6 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Reportes espaciados
 + Tipo de Moneda
 + Reporte por tienda
-+ Mostrar los registros solo del mes
-+ Definir los tipos de pago
 + Autoajustar tamaño de la ventana (Frame sobre frame)
 + Agregar eliminación lógica al borrar metodo de pago
-+ 
++ Mostrar reportes de metodos de pago eliminados.
