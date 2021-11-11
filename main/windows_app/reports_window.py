@@ -7,10 +7,21 @@ import os
 from datetime import date
 
 monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 7:"Julio", 8:"Agosto", 9:"Septiembre", 10:"Octubre", 11:"Noviembre", 12:"Diciembre"}
-payments = ["Visa", "Master\nCard", "Paypal"]
+
 categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
-amounts = []
-amounts2 = []
+
+def GetPaymets():
+    my_path = os.getcwd()
+    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
+    paymentsFile = file.readlines()
+    payments = []
+    for i in range (len(paymentsFile)):
+        paymentsFile[i] = paymentsFile[i].split(",")
+
+    for i in range(len(paymentsFile)):
+        payments.append(paymentsFile[i][0])
+    
+    return payments
 
 def CreateList():
     my_path = os.getcwd()
@@ -58,7 +69,7 @@ def CreateCategoryDic():
 
 def CreatePaymentDic():
     registers_ = CreateList()
-    payments_ = ["Visa", "MasterCard", "Paypal"]
+    payments_ = GetPaymets()
 
     paymentsDictionary = {payment : 0 for payment in payments_}
 
@@ -116,12 +127,11 @@ def CreateGraphV(mainFrame):
 
 def CreateGraphH(mainFrame):
     paymentsDictionary = CreatePaymentDic()
-    
-    global amounts2
-    amounts2 = [paymentsDictionary["Visa"], 
-                paymentsDictionary["MasterCard"], 
-                paymentsDictionary["Paypal"]]
-    
+    payments = GetPaymets()
+    amounts2 = []
+    for name in paymentsDictionary:
+        amounts2.append(paymentsDictionary[name])
+
     paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,2.3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
     payGraph.barh(payments, amounts2)

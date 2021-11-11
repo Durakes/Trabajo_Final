@@ -6,7 +6,19 @@ import os
 #! Variables
 totalSpend = 0
 categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
-paymentsNames = ["Visa", "MasterCard", "Paypal"]
+
+def GetPaymets():
+    my_path = os.getcwd()
+    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
+    paymentsFile = file.readlines()
+    payments = []
+    for i in range (len(paymentsFile)):
+        paymentsFile[i] = paymentsFile[i].split(",")
+
+    for i in range(len(paymentsFile)):
+        payments.append(paymentsFile[i][0])
+    
+    return payments
 
 def Register(root, mainFrame):
     root.title("Register")
@@ -28,6 +40,7 @@ def Register(root, mainFrame):
     categoriesDropBox["values"]  = categoriesNames
     categoriesDropBox.place(x = 145, y = 145)
 
+    paymentsNames = GetPaymets()
     Label(mainFrame, text = "Seleccione el modo de pago empleado").place(x = 110, y = 190)
     global paymentsDropBox
     paymentsDropBox = ttk.Combobox(mainFrame)

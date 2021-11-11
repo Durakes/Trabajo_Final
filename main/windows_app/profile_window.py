@@ -69,9 +69,10 @@ def Profile(root, mainFrame):
     
     for i in range(len(paymentsList)-1,-1,-1):
         Label(mainFrame, image = imageDic[paymentsList[i][1]]).place(x = 50, y = positiony)
-        Label(mainFrame, text = "****" + paymentsList[i][3], bg = "white").place(x = 110, y = positiony)
-        Label(mainFrame, text = paymentsList[i][4] + "/" + paymentsList[i][5], bg = "white").place(x = 170, y = positiony)
-        Button(mainFrame, text = "Borrar", command = lambda index = i: Erase(int(index), root, mainFrame)).place(x = 300, y = positiony)
+        Label(mainFrame, text = paymentsList[i][0], bg = "white").place(x = 120, y = positiony)
+        Label(mainFrame, text = "****" + paymentsList[i][3], bg = "white").place(x = 200, y = positiony)
+        Label(mainFrame, text = paymentsList[i][4] + "/" + paymentsList[i][5], bg = "white").place(x = 260, y = positiony)
+        Button(mainFrame, text = "Borrar", command = lambda index = i: Erase(int(index), root, mainFrame)).place(x = 330, y = positiony)
         positiony = positiony + 40
         
 
