@@ -1,6 +1,7 @@
 from tkinter import *
 import windows_app.dashboard_window as dashboard_w
 import windows_app.newPayment_window as payment_w
+import windows_app.limit_window as limit_w
 import os
 from PIL import Image, ImageTk
 from tkinter import messagebox as MessageBox
@@ -41,6 +42,7 @@ def Erase(index, root, mainFrame):
     else:
         Profile(root, mainFrame)
 
+
 def Profile(root, mainFrame):
 
     root.title("Profile")
@@ -77,4 +79,5 @@ def Profile(root, mainFrame):
         
 
     Button(mainFrame, text = "Agregar nuevo método de pago", command = lambda: payment_w.NewPaymenMethod(root, mainFrame)).place(x = 110, y = 530)
-    Button(mainFrame, text = "Volver", command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 180, y = 570 )
+    Button(mainFrame, text = "Agregar monto límite", command = lambda: limit_w.Limit(root, mainFrame)).place(x = 140, y = 580)
+    Button(mainFrame, text = "Volver", command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 180, y = 630)
