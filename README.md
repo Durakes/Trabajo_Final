@@ -23,6 +23,10 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Página de Perfil
 + Icono + Nombre
 + Nombre Reportes
++ Comentarios + Code Review
++ Datos de prueba
++ Cambiar datos a floats
+
 
 ## Posibles adicionales
 + Reporte por tienda

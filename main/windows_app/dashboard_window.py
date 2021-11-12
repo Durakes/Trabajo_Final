@@ -6,7 +6,6 @@ import os
 from datetime import date
 
 shownRegisters = []
-#TODO juntar fors General List y Total Month spent
 def CreateGeneralList():
     my_path = os.getcwd()
     file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
