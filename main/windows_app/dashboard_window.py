@@ -35,6 +35,15 @@ def TotalMonthSpent():
 
     return amount
 
+def TakeLimit():
+    my_path = os.getcwd()
+    limitfile = open(my_path + r"\main\fakedb\limits.txt")
+    content = [limitfile.readlines()[-1]]
+    for i in range(len(content)):
+        content[i]=content[i].split(",")
+    finalLimit = content[0][0]
+
+    return finalLimit
 
 def Dashboard(root, mainFrame):
     root.title("Dashboard")
@@ -45,9 +54,9 @@ def Dashboard(root, mainFrame):
     
     amount = TotalMonthSpent()
     shownRegisters = CreateDashList()
-
+    finalLimit = TakeLimit()
     Label(mainFrame, text = "Límite establecido: ").place(x = 150, y = 30)
-    Label(mainFrame, text ="10000").place(x = 170, y = 50)
+    Label(mainFrame, text = finalLimit).place(x = 170, y = 50)
 
     Label(mainFrame, text = "Usted está gastando en el mes: ").place(x = 120, y = 100)
     currentAmount = Label(mainFrame, text = amount)

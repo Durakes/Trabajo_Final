@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox as MessageBox
 from tkcalendar import *
 import windows_app.dashboard_window as dashboard_w
 import os
+from datetime import date
 #! Variables
 totalSpend = 0
 categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
@@ -73,7 +75,55 @@ def GetRegisters(root, mainFrame):
     store = storeEntry.get()
 
     my_path = os.getcwd()
-    file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
-    file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
+    limitVerified = VerifyLimit(int(amount), month, date_.year)
+
+    if limitVerified == True:
+        file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
+        file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
+        file.close()
+        dashboard_w.Dashboard(root, mainFrame)
+    else:
+        shouldContinue=MessageBox.askyesno(message = f"Con este gasto (S/.{amount}) está excediendo el límite establecido mensual. ¿Desea continuar?")
+        if shouldContinue == True:
+            file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
+            file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
+            file.close()
+            dashboard_w.Dashboard(root, mainFrame)
+        else:
+            dashboard_w.Dashboard(root, mainFrame)
+
+def VerifyLimit(amount,monthR, yearR):
+    my_path = os.getcwd()
+    limitfile = open(my_path + r"\main\fakedb\limits.txt")
+    content = [limitfile.readlines()[-1]]
+    currentAmount = TotalMonthSpent()
+
+    for i in range(len(content)):
+        content[i]=content[i].split(",")
+    
+    content[0][2] = content[0][2][:-1]
+    
+    if monthR == int(content[0][1]) and yearR == int(content[0][2]):
+            if int(content[0][0]) > currentAmount + amount:
+                return True
+            else:
+                return False
+        
+def TotalMonthSpent():
+    registers_ = CreateGeneralList()
+    amount = 0
+    for i in range(len(registers_)):
+        if date.today().month == int(registers_[i][4]):
+            amount = amount + int(registers_[i][0])
+
+    return amount
+
+def CreateGeneralList():
+    my_path = os.getcwd()
+    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
+
+    registers_ = file.readlines()
+    for i in range (len(registers_)):
+        registers_[i]=registers_[i].split(",")
     file.close()
-    dashboard_w.Dashboard(root, mainFrame)
+    return registers_

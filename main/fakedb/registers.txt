@@ -5,3 +5,6 @@
 125,Comida,mastercard6,2021-11-08,11,Xiaomi
 300,Ropa,visa3,2021-11-16,11,Apple
 562,Comida,paypal1,2021-11-29,11,Zara
+100,Entretenimiento,visa3,2021-11-11,11,Xiaomi
+200,Comida,paypal1,2021-11-09,11,HyperX
+100,Comida,paypal1,2021-11-11,11,Wong

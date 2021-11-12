@@ -3,12 +3,14 @@
 Versiones: 
 + Python 3.9.5
 + Tkinter 8.6
++ Matplotlib 3.4.3
++ tkcalendar 1.6.1
 
 Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 
 ## Paso a paso
 + Clonar repositorio
-+ Instalar las librerías necesarias 
++ Instalar las librerías necesarias
 
 ## Instalación librería Pillow:
 `pip install Pillow`
@@ -19,12 +21,7 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 ## TODO
 + Pantalla para poner el límite mensual --> Pop up
 + Pantalla de alerta --> Pop up
-+ Confirmación para borrar método de pago --> Pop up
 + Logo
-+ Páginas de reportes mas detalladas
-+ Reportes espaciados
-+ Tipo de Moneda
 + Reporte por tienda
-+ Autoajustar tamaño de la ventana (Frame sobre frame)
 + Agregar eliminación lógica al borrar metodo de pago
 + Mostrar reportes de metodos de pago eliminados.
