@@ -1,2 +1,3 @@
 main/test.pyw
-main/login.pyw
+main/login.py
+__pycache__
