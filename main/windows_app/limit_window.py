@@ -25,6 +25,10 @@ def SetLimit(root, mainFrame):
     limit = limitEntry.get()
 
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
 
     rfile = open(my_path + r"\main\fakedb\limits.txt", "r")
     limits_ = rfile.readlines()

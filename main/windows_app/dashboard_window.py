@@ -8,6 +8,11 @@ from datetime import date
 shownRegisters = []
 def CreateGeneralList():
     my_path = os.getcwd()
+    print(my_path)
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
 
     registers_ = file.readlines()
@@ -36,6 +41,10 @@ def TotalMonthSpent():
 
 def TakeLimit():
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     limitfile = open(my_path + r"\main\fakedb\limits.txt")
     content = [limitfile.readlines()[-1]]
     for i in range(len(content)):

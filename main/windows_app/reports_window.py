@@ -12,6 +12,10 @@ categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
 
 def GetPaymets():
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
     paymentsFile = file.readlines()
     payments = []
@@ -25,6 +29,10 @@ def GetPaymets():
 
 def CreateList():
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
 
     registers_ = file.readlines()

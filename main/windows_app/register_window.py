@@ -11,6 +11,10 @@ categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
 def GetPaymets():
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
     paymentsFile = file.readlines()
     payments = []
@@ -75,6 +79,10 @@ def GetRegisters(root, mainFrame):
     store = storeEntry.get()
 
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     limitVerified = VerifyLimit(int(amount), month, date_.year)
 
     if limitVerified == True:
@@ -94,6 +102,10 @@ def GetRegisters(root, mainFrame):
 
 def VerifyLimit(amount,monthR, yearR):
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     limitfile = open(my_path + r"\main\fakedb\limits.txt")
     content = [limitfile.readlines()[-1]]
     currentAmount = TotalMonthSpent()
@@ -120,6 +132,10 @@ def TotalMonthSpent():
 
 def CreateGeneralList():
     my_path = os.getcwd()
+    if "\main" in my_path:
+        my_path = my_path[:-5]
+    else:
+        my_path = my_path
     file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
 
     registers_ = file.readlines()

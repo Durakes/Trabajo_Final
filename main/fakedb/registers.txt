@@ -8,3 +8,4 @@
 100,Entretenimiento,visa3,2021-11-11,11,Xiaomi
 200,Comida,paypal1,2021-11-09,11,HyperX
 100,Comida,paypal1,2021-11-11,11,Wong
+300,Comida,paypal1,2021-11-11,11,Amazon

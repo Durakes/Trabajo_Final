@@ -7,6 +7,10 @@ from PIL import Image, ImageTk
 from tkinter import messagebox as MessageBox
 
 my_path = os.getcwd()
+if "\main" in my_path:
+    my_path = my_path[:-5]
+else:
+    my_path = my_path
 
 def CreateList():
     file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding = "UTF-8")
