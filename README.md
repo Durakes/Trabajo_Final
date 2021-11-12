@@ -18,10 +18,14 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 `pip install tkcalendar`
 
 
-## TODO
-+ Pantalla para poner el límite mensual --> Pop up
-+ Pantalla de alerta --> Pop up
+## TODO IMPORTANTE
 + Logo
++ Página de Perfil
++ Icono + Nombre
++ Nombre Reportes
+
+## Posibles adicionales
 + Reporte por tienda
 + Agregar eliminación lógica al borrar metodo de pago
 + Mostrar reportes de metodos de pago eliminados.
++ Estilos
