@@ -27,6 +27,7 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Datos de prueba
 + Cambiar datos a floats
 + Agregar WarningBox en Métodos de Pago
++ Helpers/Utilities
 
 
 ## Posibles adicionales
