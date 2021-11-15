@@ -41,10 +41,6 @@ def CreateList():
         registers_[i] = registers_[i].split(",")
     file.close()
 
-    #? Por si se necesita leer las tiendas luego
-    #!for i in range(len(registers_)):
-        #!registers_[i][4] = registers_[i][4][:-1]
-
     return registers_
 
 def CreateTableValues():
@@ -57,7 +53,7 @@ def CreateTableValues():
             if number == int(registers_[i][4]):
                 for j in range(len(testList)):
                     if testList[j][0] == monthDic[number]:
-                        testList[j][1] = testList[j][1] + int(registers_[i][0])
+                        testList[j][1] = testList[j][1] + float(registers_[i][0])
     
     return testList
 
@@ -65,13 +61,13 @@ def CreateCategoryDic():
     registers_ = CreateList()
     categories_ = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
-    categoriesDictionary = {category : 0 for category in categories_}
+    categoriesDictionary = {category : 0.0 for category in categories_}
     
     for i in range(len(registers_)):
         if int(registers_[i][4]) == date.today().month:
             for name in categoriesDictionary:
                 if name == registers_[i][1]:
-                    categoriesDictionary[name] = categoriesDictionary[name] + int(registers_[i][0])
+                    categoriesDictionary[name] = categoriesDictionary[name] + float(registers_[i][0])
 
     return categoriesDictionary
 
@@ -85,7 +81,7 @@ def CreatePaymentDic():
         if int(registers_[i][4]) == date.today().month:
             for name in paymentsDictionary:
                 if name == registers_[i][2]:
-                    paymentsDictionary[name] = paymentsDictionary[name] + int(registers_[i][0])
+                    paymentsDictionary[name] = paymentsDictionary[name] + float(registers_[i][0])
 
     return paymentsDictionary
 
@@ -94,23 +90,23 @@ def Reports(root, mainFrame):
     root.title("Reporte Mensual")
     mainFrame.destroy()
     mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
+    mainFrame.config(width = "1080", height = "425")
     mainFrame.pack()
 
     Label(mainFrame, text = "Reporte Mensual").place(x = 20, y = 20)
-    Label(mainFrame, text = monthDic[date.today().month]).place(x = 320, y = 20)
+    Label(mainFrame, text = monthDic[date.today().month]).place(x = 1000, y = 20)
 
     CreateGraphV(mainFrame)
 
-    Label(mainFrame, text = "Métodos de pago mas usados").place(x = 50, y = 300)
+    #Label(mainFrame, text = "Métodos de pago mas usados").place(x = 400, y = 20)
 
     CreateGraphH(mainFrame)
 
-    Label(mainFrame, text = "Resumen gasto total de los últimos 5 meses").place(x = 50, y = 520)
+    #Label(mainFrame, text = "Resumen gasto total de los últimos 5 meses").place(x = 800, y = 20)
 
     CreateTable(mainFrame)
 
-    Button(mainFrame, text = "Volver", width = 20, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 125, y = 810)
+    Button(mainFrame, text = "Volver", width = 20, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 460, y = 360)
 
 def CreateGraphV(mainFrame):
     categoriesDictionary = CreateCategoryDic()
@@ -131,7 +127,7 @@ def CreateGraphV(mainFrame):
 
     categoriesCanvas = FigureCanvasTkAgg(categoriesReport, master = mainFrame)
     categoriesCanvas.draw()
-    categoriesCanvas.get_tk_widget().place(x = 20, y = 60)
+    categoriesCanvas.get_tk_widget().place(x = 20, y = 90)
 
 def CreateGraphH(mainFrame):
     paymentsDictionary = CreatePaymentDic()
@@ -140,7 +136,7 @@ def CreateGraphH(mainFrame):
     for name in paymentsDictionary:
         amounts2.append(paymentsDictionary[name])
 
-    paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,2.3), sharey = True, facecolor = "#f0f0ed")
+    paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
     payGraph.barh(payments, amounts2)
 
@@ -150,13 +146,13 @@ def CreateGraphH(mainFrame):
 
     paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = mainFrame)
     paymentsCanvas.draw()
-    paymentsCanvas.get_tk_widget().place(x = 20, y = 330)
+    paymentsCanvas.get_tk_widget().place(x = 425, y = 90)
 
 def CreateTable(mainFrame):
     monthList = CreateTableValues()
     lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2), show = "headings", height = "10")
 
-    lastMonthTable.place(x=110, y=550)
+    lastMonthTable.place(x = 840, y = 90)
 
     lastMonthTable.column(1, width = 100)
     lastMonthTable.column(2, width=100, anchor=CENTER)
