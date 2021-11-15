@@ -73,7 +73,7 @@ def GetRegisters(root, mainFrame):
     payment = paymentsDropBox.get()
     
     global totalSpend
-    totalSpend = totalSpend + int(amount)
+    totalSpend = totalSpend + float(amount)
     date_ = varDateEntry.get_date() #! Return a datetime.date
     month = date_.month
     store = storeEntry.get()
@@ -83,7 +83,7 @@ def GetRegisters(root, mainFrame):
         my_path = my_path[:-5]
     else:
         my_path = my_path
-    limitVerified = VerifyLimit(int(amount), month, date_.year)
+    limitVerified = VerifyLimit(float(amount), month, date_.year)
 
     if limitVerified == True:
         file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
@@ -116,17 +116,17 @@ def VerifyLimit(amount,monthR, yearR):
     content[0][2] = content[0][2][:-1]
     
     if monthR == int(content[0][1]) and yearR == int(content[0][2]):
-            if int(content[0][0]) > currentAmount + amount:
+            if float(content[0][0]) > currentAmount + amount:
                 return True
             else:
                 return False
         
 def TotalMonthSpent():
     registers_ = CreateGeneralList()
-    amount = 0
+    amount = 0.0
     for i in range(len(registers_)):
         if date.today().month == int(registers_[i][4]):
-            amount = amount + int(registers_[i][0])
+            amount = amount + float(registers_[i][0])
 
     return amount
 

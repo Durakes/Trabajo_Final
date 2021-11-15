@@ -5,6 +5,8 @@ from datetime import date
 
 def Limit(root, mainFrame):
     
+    monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 7:"Julio", 8:"Agosto", 9:"Septiembre", 10:"Octubre", 11:"Noviembre", 12:"Diciembre"}
+
     root.title("Límite")
     global limitEntry
     limitEntry = StringVar()
@@ -14,7 +16,7 @@ def Limit(root, mainFrame):
     mainFrame.pack()
 
     Label(mainFrame, text = "Establece tu límite mensual").place(x = 130, y = 70)
-    Label(mainFrame, text = "Mes: " + str(date.today().month)).place(x = 120, y = 110)
+    Label(mainFrame, text = "Mes: " + str(monthDic[date.today().month])).place(x = 120, y = 110)
     Label(mainFrame, text = "Ingresa tu monto límite: ").place(x = 80, y = 150)
     Entry(mainFrame, width = 25, borderwidth = 2, textvariable = limitEntry).place(x = 220, y = 150)
 

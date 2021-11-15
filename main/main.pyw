@@ -7,7 +7,7 @@ if "\main" in my_path:
     my_path = my_path[:-5]
 else:
     my_path = my_path
-print(my_path)
+
 root = Tk()
 root.resizable(0,0)
 mainFrame = Frame(root)

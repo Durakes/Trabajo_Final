@@ -22,12 +22,11 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Logo
 + Página de Perfil
 + Icono + Nombre
-+ Nombre Reportes
++ Nombre Reportes (Split en 2 líneas) //Revisar
 + Comentarios + Code Review
 + Datos de prueba
-+ Cambiar datos a floats
-+ Agregar WarningBox en Métodos de Pago
-+ Helpers/Utilities
++ Utilizar Utilites
+
 
 
 ## Posibles adicionales

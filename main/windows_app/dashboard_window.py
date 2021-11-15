@@ -2,13 +2,14 @@ from tkinter import *
 import windows_app.register_window as register_w
 import windows_app.reports_window as reports_w
 import windows_app.profile_window as profile_w
+import helpers.readfiles as rfiles
 import os
 from datetime import date
 
 shownRegisters = []
 def CreateGeneralList():
     my_path = os.getcwd()
-    print(my_path)
+
     if "\main" in my_path:
         my_path = my_path[:-5]
     else:
@@ -32,10 +33,10 @@ def CreateDashList():
 
 def TotalMonthSpent():
     registers_ = CreateGeneralList()
-    amount = 0
+    amount = 0.0
     for i in range(len(registers_)):
         if date.today().month == int(registers_[i][4]):
-            amount = amount + int(registers_[i][0])
+            amount = amount + float(registers_[i][0])
 
     return amount
 
