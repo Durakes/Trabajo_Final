@@ -45,9 +45,7 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Nombre Reportes (Split en 2 líneas) //Revisar
 + Comentarios + Code Review
 + Datos de prueba
-+ Utilizar Utilites
-
-
++ MonthDic y Payments en los helpers
 
 ## Posibles adicionales
 + Reporte por tienda

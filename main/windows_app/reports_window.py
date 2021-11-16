@@ -4,13 +4,11 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import windows_app.dashboard_window as dashboard_w
 import helpers.readfiles as readfiles
-import os
 from datetime import date
 
 monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 7:"Julio", 8:"Agosto", 9:"Septiembre", 10:"Octubre", 11:"Noviembre", 12:"Diciembre"}
 
-categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
-
+#* Función para crear la lista de los nombres de los tipos de pago creados.
 def GetPaymets():
     paymentsFile = readfiles.GetPaymentsFile()
     payments = []
@@ -19,6 +17,7 @@ def GetPaymets():
     
     return payments
 
+#* Función para crear los valores que iran en la tabla de resumen mensual.
 def CreateTableValues():
     monthTuple = [["Enero",0], ["Febrero",0], ["Marzo",0], ["Abril",0], ["Mayo",0], ["Junio",0], ["Julio",0], ["Agosto",0], ["Septiembre",0], ["Octubre",0], ["Noviembre",0], ["Diciembre",0]]
 
@@ -33,6 +32,7 @@ def CreateTableValues():
     
     return monthTuple
 
+#* Función para crear los valores por categoría.
 def CreateCategoryDic():
     registers_ = readfiles.GetRegistersFile()
     categories_ = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
@@ -47,6 +47,7 @@ def CreateCategoryDic():
 
     return categoriesDictionary
 
+#* Función para crear los valores por método de pago.
 def CreatePaymentDic():
     registers_ = readfiles.GetRegistersFile()
     payments_ = GetPaymets()
@@ -61,24 +62,7 @@ def CreatePaymentDic():
 
     return paymentsDictionary
 
-def Reports(root, mainFrame):
-    root.title("Reporte Mensual")
-    mainFrame.destroy()
-    mainFrame = Frame()
-    mainFrame.config(width = "1080", height = "425")
-    mainFrame.pack()
-
-    Label(mainFrame, text = "Reporte Mensual").place(x = 20, y = 20)
-    Label(mainFrame, text = monthDic[date.today().month]).place(x = 1000, y = 20)
-
-    CreateGraphV(mainFrame)
-
-    CreateGraphH(mainFrame)
-
-    CreateTable(mainFrame)
-
-    Button(mainFrame, text = "Volver", width = 20, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 460, y = 360)
-
+#* Función para crear el gráfico vertical(Categoría).
 def CreateGraphV(mainFrame):
     categoriesDictionary = CreateCategoryDic()
 
@@ -87,6 +71,8 @@ def CreateGraphV(mainFrame):
                 categoriesDictionary["Educación"], 
                 categoriesDictionary["Ropa"], 
                 categoriesDictionary["Otros"]]
+
+    categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
 
     categoriesReport, catGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     categoriesReport.suptitle("Reporte mensual por categorías")
@@ -99,6 +85,7 @@ def CreateGraphV(mainFrame):
     categoriesCanvas.draw()
     categoriesCanvas.get_tk_widget().place(x = 20, y = 90)
 
+#* Función para crear el gráfico horizontal(Método de pago).
 def CreateGraphH(mainFrame):
     paymentsDictionary = CreatePaymentDic()
     payments = GetPaymets()
@@ -118,6 +105,7 @@ def CreateGraphH(mainFrame):
     paymentsCanvas.draw()
     paymentsCanvas.get_tk_widget().place(x = 425, y = 90)
 
+#* Función para crear la tabla de resumen mensual.
 def CreateTable(mainFrame):
     monthList = CreateTableValues()
     lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2), show = "headings", height = "10")
@@ -132,3 +120,22 @@ def CreateTable(mainFrame):
 
     for i in range(len(monthList)):
         lastMonthTable.insert("", "end", values=monthList[i])
+
+#* Estructura de la ventana de los reportes generales.
+def Reports(root, mainFrame):
+    root.title("Reporte Mensual")
+    mainFrame.destroy()
+    mainFrame = Frame()
+    mainFrame.config(width = "1080", height = "425")
+    mainFrame.pack()
+
+    Label(mainFrame, text = "Reporte Mensual").place(x = 20, y = 20)
+    Label(mainFrame, text = monthDic[date.today().month]).place(x = 1000, y = 20)
+
+    CreateGraphV(mainFrame)
+
+    CreateGraphH(mainFrame)
+
+    CreateTable(mainFrame)
+
+    Button(mainFrame, text = "Volver", width = 20, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 460, y = 360)

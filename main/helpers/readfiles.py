@@ -1,5 +1,6 @@
 import os
 
+#* Función para obtener la ruta de la carpeta raíz.
 def Route():
     my_path = os.getcwd()
     if "\main" in my_path:
@@ -8,6 +9,7 @@ def Route():
         my_path = my_path
     return my_path
 
+#* Función para obtener la lista de todos los registros.
 def GetRegistersFile():
     my_path = Route()
     
@@ -20,6 +22,7 @@ def GetRegistersFile():
     
     return registers_
 
+#* Función para obtener la lista de todos los métodos de pago.
 def GetPaymentsFile():
     my_path = Route()
     
@@ -32,6 +35,7 @@ def GetPaymentsFile():
 
     return payments_
 
+#* Función para obtener la lista de todos los límites mensuales.
 def GetLimitFile():
     my_path = Route()
 

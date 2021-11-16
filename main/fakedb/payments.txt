@@ -1,4 +1,2 @@
 mastercard2,2,Master Card,4532,07,2024
-paypal1,3,PayPal,1200,12,2026
-bcp,1,Visa,6985,08,2023
-interbank,3,PayPal,5472,12,2025
+interbank,3,PayPal,5472,12,202

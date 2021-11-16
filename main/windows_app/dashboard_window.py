@@ -5,6 +5,7 @@ import windows_app.profile_window as profile_w
 import helpers.readfiles as readfiles
 from datetime import date
 
+#* Función que crea la lista de los últimos 5 registros.
 def CreateDashList():
     registers_ = readfiles.GetRegistersFile()
     shownRegisters = registers_[-5:]
@@ -14,6 +15,7 @@ def CreateDashList():
     
     return shownRegisters
 
+#* Función que calcula y devuelve el total registrado del mes.
 def TotalMonthSpent():
     registers_ = readfiles.GetRegistersFile()
     amount = 0.0
@@ -23,6 +25,7 @@ def TotalMonthSpent():
 
     return amount
 
+#* Función que lee el límite para mostrarlo luego.
 def TakeLimit():
     content = [readfiles.GetLimitFile()[-1]]
 
@@ -32,6 +35,7 @@ def TakeLimit():
 
     return finalLimit
 
+#* Estructura de la ventana del Dashboard general.
 def Dashboard(root, mainFrame):
     root.title("Dashboard")
     mainFrame.destroy()
