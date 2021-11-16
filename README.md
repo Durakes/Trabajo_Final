@@ -43,7 +43,7 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Página de Perfil
 + Icono + Nombre
 + Nombre Reportes (Split en 2 líneas) //Revisar
-+ Comentarios + Code Review
++ Code Review
 + Datos de prueba
 + MonthDic y Payments en los helpers
 
