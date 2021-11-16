@@ -3,31 +3,75 @@ from tkinter import ttk
 from tkinter import messagebox as MessageBox
 from tkcalendar import *
 import windows_app.dashboard_window as dashboard_w
-import os
+import helpers.readfiles as readfiles
 from datetime import date
-#! Variables
-totalSpend = 0
-categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
+#* Función para crear la lista de los nombres de los tipos de pago creados.
 def GetPaymets():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
-    paymentsFile = file.readlines()
+    paymentsFile = readfiles.GetPaymentsFile()
     payments = []
-    for i in range (len(paymentsFile)):
-        paymentsFile[i] = paymentsFile[i].split(",")
 
     for i in range(len(paymentsFile)):
         payments.append(paymentsFile[i][0])
     
     return payments
 
+#* Función para verificar si el registro sobrepasa el límite. 
+def VerifyLimit(amount,monthR, yearR):
+    content = [readfiles.GetLimitFile()[-1]]
+    currentAmount = TotalMonthSpent()
+    for i in range(len(content)):
+        content[i]=content[i].split(",")
+    
+    content[0][2] = content[0][2][:-1]
+    
+    if monthR == int(content[0][1]) and yearR == int(content[0][2]):
+            if float(content[0][0]) > currentAmount + amount:
+                return True
+            else:
+                return False
+        
+#* Función para calcular el total gastado en el mes.
+def TotalMonthSpent():
+    registers_ = readfiles.GetRegistersFile()
+    amount = 0.0
+    for i in range(len(registers_)):
+        if date.today().month == int(registers_[i][4]):
+            amount = amount + float(registers_[i][0])
+
+    return amount
+
+#* Función para guardar los registros en el archivo .txt
+def GetRegisters(root, mainFrame):
+    amount = amountEntry.get()
+    category = categoriesDropBox.get()
+    payment = paymentsDropBox.get()
+
+    date_ = varDateEntry.get_date() #! Return a datetime.date
+    month = date_.month
+    store = storeEntry.get()
+
+    my_path = readfiles.Route()
+    limitVerified = VerifyLimit(float(amount), month, date_.year)
+
+    if limitVerified == True:
+        file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
+        file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
+        file.close()
+        dashboard_w.Dashboard(root, mainFrame)
+    else:
+        shouldContinue=MessageBox.askyesno(message = f"Con este gasto (S/.{amount}) está excediendo el límite establecido mensual. ¿Desea continuar?")
+        if shouldContinue == True:
+            file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
+            file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
+            file.close()
+            dashboard_w.Dashboard(root, mainFrame)
+        else:
+            dashboard_w.Dashboard(root, mainFrame)
+
+#* Estructura de la ventana de Registro.
 def Register(root, mainFrame):
-    root.title("Register")
+    root.title("Registro")
     global amountEntry
     amountEntry = StringVar()
 
@@ -39,6 +83,7 @@ def Register(root, mainFrame):
     Label(mainFrame, text = "Ingrese el monto gastado").place(x = 150, y = 50)
     Entry(mainFrame, width = 25, borderwidth = 2, textvariable = amountEntry).place(x = 145, y = 75)
 
+    categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
     Label(mainFrame, text = "Seleccione la categoría correspondiente").place(x = 110, y = 120)
     global categoriesDropBox 
     categoriesDropBox= ttk.Combobox(mainFrame)
@@ -66,80 +111,3 @@ def Register(root, mainFrame):
 
     Button(mainFrame, text = "Guardar", width = 10, command = lambda: GetRegisters(root, mainFrame)).place(x = 80, y = 450)
     Button(mainFrame, text = "Cancelar", width = 10, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 250, y = 450)
-
-def GetRegisters(root, mainFrame):
-    amount = amountEntry.get()
-    category = categoriesDropBox.get()
-    payment = paymentsDropBox.get()
-    
-    global totalSpend
-    totalSpend = totalSpend + int(amount)
-    date_ = varDateEntry.get_date() #! Return a datetime.date
-    month = date_.month
-    store = storeEntry.get()
-
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    limitVerified = VerifyLimit(int(amount), month, date_.year)
-
-    if limitVerified == True:
-        file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
-        file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
-        file.close()
-        dashboard_w.Dashboard(root, mainFrame)
-    else:
-        shouldContinue=MessageBox.askyesno(message = f"Con este gasto (S/.{amount}) está excediendo el límite establecido mensual. ¿Desea continuar?")
-        if shouldContinue == True:
-            file = open(my_path + r"\main\fakedb\registers.txt", "a", encoding="UTF-8")
-            file.write(str(amount) + "," + str(category) + "," + str(payment) + "," + str(date_) + "," + str(month) + "," + str(store) + "\n")
-            file.close()
-            dashboard_w.Dashboard(root, mainFrame)
-        else:
-            dashboard_w.Dashboard(root, mainFrame)
-
-def VerifyLimit(amount,monthR, yearR):
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    limitfile = open(my_path + r"\main\fakedb\limits.txt")
-    content = [limitfile.readlines()[-1]]
-    currentAmount = TotalMonthSpent()
-
-    for i in range(len(content)):
-        content[i]=content[i].split(",")
-    
-    content[0][2] = content[0][2][:-1]
-    
-    if monthR == int(content[0][1]) and yearR == int(content[0][2]):
-            if int(content[0][0]) > currentAmount + amount:
-                return True
-            else:
-                return False
-        
-def TotalMonthSpent():
-    registers_ = CreateGeneralList()
-    amount = 0
-    for i in range(len(registers_)):
-        if date.today().month == int(registers_[i][4]):
-            amount = amount + int(registers_[i][0])
-
-    return amount
-
-def CreateGeneralList():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
-
-    registers_ = file.readlines()
-    for i in range (len(registers_)):
-        registers_[i]=registers_[i].split(",")
-    file.close()
-    return registers_

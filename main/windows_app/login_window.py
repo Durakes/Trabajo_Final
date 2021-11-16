@@ -1,8 +1,9 @@
 from tkinter import *
 import windows_app.dashboard_window as dashboard_w
 
+#* Estructura de la ventana de Inicio.
 def Login(root, mainFrame):
-    root.title("Login")
+    root.title("Inicio")
     mainFrame.config(width = "425", height = "852")
     mainFrame.pack()
     

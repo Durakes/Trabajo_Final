@@ -2,30 +2,21 @@ from tkinter import *
 import windows_app.dashboard_window as dashboard_w
 import windows_app.newPayment_window as payment_w
 import windows_app.limit_window as limit_w
-import os
+import helpers.readfiles as rfiles
 from PIL import Image, ImageTk
 from tkinter import messagebox as MessageBox
 
-my_path = os.getcwd()
-if "\main" in my_path:
-    my_path = my_path[:-5]
-else:
-    my_path = my_path
+my_path = rfiles.Route()
 
+#* Función para crear y dar formato a la lista de metodos de pago que se mostrarán en la ventana principal.
 def CreateList():
-    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding = "UTF-8")
-
-    paymentsList = file.readlines()
-
-    file.close()
-    for i in range(len(paymentsList)):
-        paymentsList[i] = paymentsList[i].split(",")
-    
+    paymentsList = rfiles.GetPaymentsFile()
     for i in range (len(paymentsList)):
         paymentsList[i][5] = paymentsList[i][5][:-1]
 
     return paymentsList
 
+#* Función para borrar un método de pago
 def Erase(index, root, mainFrame):
     paymentsList = CreateList()
 
@@ -36,7 +27,7 @@ def Erase(index, root, mainFrame):
         file = open(my_path + r"\main\fakedb\payments.txt", "w", encoding = "UTF-8")
 
         for i in range(len(paymentsList)):
-            file.write(paymentsList[i][0] + "," + paymentsList[i][1] + "," + paymentsList[i][2] + "," + paymentsList[i][3] + "," + paymentsList[i][4] + "," +paymentsList[i][5] + "\n")
+            file.write(",".join(paymentsList[i]) + "\n")
         file.close()
 
         for widget in mainFrame.winfo_children():
@@ -46,10 +37,19 @@ def Erase(index, root, mainFrame):
     else:
         Profile(root, mainFrame)
 
+#* Función para verificar que la cantidad de metodos de pago sean máximo 5.
+def CheckPayments(root, mainFrame):
+    numPayments = rfiles.GetPaymentsFile()
 
+    if len(numPayments) >= 5:
+        MessageBox.showwarning("Cuidado", "Ha alcanzado la máxima cantidad de metodos de pago")
+    else:
+        payment_w.NewPaymenMethod(root, mainFrame)
+
+#* Estructura de la ventana de Perfil.
 def Profile(root, mainFrame):
 
-    root.title("Profile")
+    root.title("Perfil")
 
     mainFrame.destroy()
     mainFrame = Frame()
@@ -81,7 +81,6 @@ def Profile(root, mainFrame):
         Button(mainFrame, text = "Borrar", command = lambda index = i: Erase(int(index), root, mainFrame)).place(x = 330, y = positiony)
         positiony = positiony + 40
         
-
-    Button(mainFrame, text = "Agregar nuevo método de pago", command = lambda: payment_w.NewPaymenMethod(root, mainFrame)).place(x = 110, y = 530)
+    Button(mainFrame, text = "Agregar nuevo método de pago", command = lambda: CheckPayments(root, mainFrame)).place(x = 110, y = 530)
     Button(mainFrame, text = "Agregar monto límite", command = lambda: limit_w.Limit(root, mainFrame)).place(x = 140, y = 580)
     Button(mainFrame, text = "Volver", command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(x = 180, y = 630)

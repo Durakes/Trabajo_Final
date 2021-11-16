@@ -1,38 +1,13 @@
 from tkinter import *
-import os
 import windows_app.profile_window as profile_w
+import helpers.readfiles as readfiles
 from datetime import date
 
-def Limit(root, mainFrame):
-    
-    root.title("Límite")
-    global limitEntry
-    limitEntry = StringVar()
-    mainFrame.destroy()
-    mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
-    mainFrame.pack()
-
-    Label(mainFrame, text = "Establece tu límite mensual").place(x = 130, y = 70)
-    Label(mainFrame, text = "Mes: " + str(date.today().month)).place(x = 120, y = 110)
-    Label(mainFrame, text = "Ingresa tu monto límite: ").place(x = 80, y = 150)
-    Entry(mainFrame, width = 25, borderwidth = 2, textvariable = limitEntry).place(x = 220, y = 150)
-
-    Button(mainFrame, text = "Guardar", width = 10, command = lambda: SetLimit(root, mainFrame)).place(x = 150, y = 220)
-    Button(mainFrame, text = "Volver", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 170, y = 280)
-
+#* Función para guardar el límite en el archivo txt.
 def SetLimit(root, mainFrame):
     limit = limitEntry.get()
-
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-
-    rfile = open(my_path + r"\main\fakedb\limits.txt", "r")
-    limits_ = rfile.readlines()
-    rfile.close()
+    my_path = readfiles.Route()
+    limits_ = readfiles.GetLimitFile()
 
     if len(limits_) != 0:
         lastLimit = limits_[-1]
@@ -55,3 +30,24 @@ def SetLimit(root, mainFrame):
         wfile.write(limit + "," + str(date.today().month) + "," + str(date.today().year) +"\n")
     
     profile_w.Profile(root, mainFrame)
+
+#* Estructura de la ventana donde se asigna el límite mensual.
+def Limit(root, mainFrame):
+    
+    monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 7:"Julio", 8:"Agosto", 9:"Septiembre", 10:"Octubre", 11:"Noviembre", 12:"Diciembre"}
+
+    root.title("Límite")
+    global limitEntry
+    limitEntry = StringVar()
+    mainFrame.destroy()
+    mainFrame = Frame()
+    mainFrame.config(width = "425", height = "852")
+    mainFrame.pack()
+
+    Label(mainFrame, text = "Establece tu límite mensual").place(x = 130, y = 70)
+    Label(mainFrame, text = "Mes: " + str(monthDic[date.today().month])).place(x = 120, y = 110)
+    Label(mainFrame, text = "Ingresa tu monto límite: ").place(x = 80, y = 150)
+    Entry(mainFrame, width = 25, borderwidth = 2, textvariable = limitEntry).place(x = 220, y = 150)
+
+    Button(mainFrame, text = "Guardar", width = 10, command = lambda: SetLimit(root, mainFrame)).place(x = 150, y = 220)
+    Button(mainFrame, text = "Volver", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 170, y = 280)

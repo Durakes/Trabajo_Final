@@ -2,27 +2,12 @@ from tkinter import *
 import windows_app.register_window as register_w
 import windows_app.reports_window as reports_w
 import windows_app.profile_window as profile_w
-import os
+import helpers.readfiles as readfiles
 from datetime import date
 
-shownRegisters = []
-def CreateGeneralList():
-    my_path = os.getcwd()
-    print(my_path)
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
-
-    registers_ = file.readlines()
-    for i in range (len(registers_)):
-        registers_[i]=registers_[i].split(",")
-    file.close()
-    return registers_
-
+#* Función que crea la lista de los últimos 5 registros.
 def CreateDashList():
-    registers_ = CreateGeneralList()
+    registers_ = readfiles.GetRegistersFile()
     shownRegisters = registers_[-5:]
 
     for i in range (len(shownRegisters)):
@@ -30,29 +15,27 @@ def CreateDashList():
     
     return shownRegisters
 
+#* Función que calcula y devuelve el total registrado del mes.
 def TotalMonthSpent():
-    registers_ = CreateGeneralList()
-    amount = 0
+    registers_ = readfiles.GetRegistersFile()
+    amount = 0.0
     for i in range(len(registers_)):
         if date.today().month == int(registers_[i][4]):
-            amount = amount + int(registers_[i][0])
+            amount = amount + float(registers_[i][0])
 
     return amount
 
+#* Función que lee el límite para mostrarlo luego.
 def TakeLimit():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    limitfile = open(my_path + r"\main\fakedb\limits.txt")
-    content = [limitfile.readlines()[-1]]
+    content = [readfiles.GetLimitFile()[-1]]
+
     for i in range(len(content)):
         content[i]=content[i].split(",")
     finalLimit = content[0][0]
 
     return finalLimit
 
+#* Estructura de la ventana del Dashboard general.
 def Dashboard(root, mainFrame):
     root.title("Dashboard")
     mainFrame.destroy()

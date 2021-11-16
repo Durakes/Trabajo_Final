@@ -2,8 +2,42 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as MessageBox
 import windows_app.profile_window as profile_w
-import os
+import helpers.readfiles as readfiles
 
+#* Función para guardar los métodos de pago en el archivo txt.
+def SavePaymentType(root, mainFrame):
+    global index
+    
+    cardname = cardID.get()
+    cardnum = cardNumber.get()
+    cardtype = cardType.get()
+    expmonth = monthExp.get()
+    expyear = yearExp.get()
+    
+    if int(expmonth) > 12 or int(expyear) <= 2021:
+        MessageBox.showwarning("Cuidado", "La fecha ingresada no es válida, intente nuevamente")
+        NewPaymenMethod(root, mainFrame) #! Verificar, solo limpiar los datos
+    else: 
+        if len(expmonth) == 1:
+            expmonth = "0" + expmonth
+
+        if cardtype == "Visa":
+            index = 1
+        elif cardtype == "Master Card":
+            index = 2
+        elif cardtype == "PayPal":
+            index = 3
+
+        last_four = cardnum[-4:]
+
+        my_path = readfiles.Route()
+
+        cards = open(my_path + r"\main\fakedb\payments.txt", "a", encoding = "UTF-8")
+        cards.write(cardname + "," + str(index) + "," + cardtype + "," + last_four + "," + expmonth + "," + expyear + "\n")
+        cards.close()
+        profile_w.Profile(root, mainFrame)
+
+#* Estructura de la ventana para agregar un nuevo método de pago.
 def NewPaymenMethod(root, mainFrame):
     root.title("Agregar Método de Pago")
     global cardID
@@ -15,8 +49,7 @@ def NewPaymenMethod(root, mainFrame):
     monthExp = StringVar()
     yearExp = StringVar()
 
-
-    payments_=["Visa","Master Card", "PayPal"]
+    payments_ = ["Visa","Master Card", "PayPal"]
 
     mainFrame.destroy()
     mainFrame = Frame()
@@ -43,38 +76,3 @@ def NewPaymenMethod(root, mainFrame):
 
     Button(mainFrame, text = "Guardar", command = lambda: SavePaymentType(root, mainFrame)).place(x = 120, y = 390)
     Button(mainFrame, text = "Cancelar", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 250, y = 390)
-
-def SavePaymentType(root, mainFrame):
-    global index
-    
-    cardname = cardID.get()
-    cardnum = cardNumber.get()
-    cardtype = cardType.get()
-    expmonth = monthExp.get()
-    expyear = yearExp.get()
-    
-    if int(expmonth) > 12 or int(expyear) <= 2021:
-        MessageBox.showwarning("Cuidado", "La fecha ingresada no es válida, intente nuevamente")
-        NewPaymenMethod(root, mainFrame) #! Verificar, solo limpiar los datos
-    else: 
-        if len(expmonth) == 1:
-            expmonth="0"+expmonth
-        
-        if cardtype=="Visa":
-            index=1
-        elif cardtype=="Master Card":
-            index=2
-        elif cardtype=="PayPal":
-            index=3
-
-        last_four=cardnum[-4:]
-
-        my_path = os.getcwd()
-        if "\main" in my_path:
-            my_path = my_path[:-5]
-        else:
-            my_path = my_path
-        cards = open(my_path + r"\main\fakedb\payments.txt", "a", encoding = "UTF-8")
-        cards.write(cardname + "," + str(index) + "," + cardtype + "," + last_four + "," + expmonth + "," + expyear + "\n")
-        cards.close()
-        profile_w.Profile(root, mainFrame)
