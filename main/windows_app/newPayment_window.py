@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as MessageBox
 import windows_app.profile_window as profile_w
-import os
+import helpers.readfiles as readfiles
 
 def NewPaymenMethod(root, mainFrame):
     root.title("Agregar Método de Pago")
@@ -58,22 +58,19 @@ def SavePaymentType(root, mainFrame):
         NewPaymenMethod(root, mainFrame) #! Verificar, solo limpiar los datos
     else: 
         if len(expmonth) == 1:
-            expmonth="0"+expmonth
-        
-        if cardtype=="Visa":
-            index=1
-        elif cardtype=="Master Card":
-            index=2
-        elif cardtype=="PayPal":
-            index=3
+            expmonth = "0" + expmonth
 
-        last_four=cardnum[-4:]
+        if cardtype == "Visa":
+            index = 1
+        elif cardtype == "Master Card":
+            index = 2
+        elif cardtype == "PayPal":
+            index = 3
 
-        my_path = os.getcwd()
-        if "\main" in my_path:
-            my_path = my_path[:-5]
-        else:
-            my_path = my_path
+        last_four = cardnum[-4:]
+
+        my_path = readfiles.Route()
+
         cards = open(my_path + r"\main\fakedb\payments.txt", "a", encoding = "UTF-8")
         cards.write(cardname + "," + str(index) + "," + cardtype + "," + last_four + "," + expmonth + "," + expyear + "\n")
         cards.close()

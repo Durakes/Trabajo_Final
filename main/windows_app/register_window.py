@@ -3,23 +3,16 @@ from tkinter import ttk
 from tkinter import messagebox as MessageBox
 from tkcalendar import *
 import windows_app.dashboard_window as dashboard_w
+import helpers.readfiles as readfiles
 import os
 from datetime import date
 #! Variables
-totalSpend = 0
+
 categoriesNames = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
 def GetPaymets():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
-    paymentsFile = file.readlines()
+    paymentsFile = readfiles.GetPaymentsFile()
     payments = []
-    for i in range (len(paymentsFile)):
-        paymentsFile[i] = paymentsFile[i].split(",")
 
     for i in range(len(paymentsFile)):
         payments.append(paymentsFile[i][0])
@@ -27,7 +20,7 @@ def GetPaymets():
     return payments
 
 def Register(root, mainFrame):
-    root.title("Register")
+    root.title("Registro")
     global amountEntry
     amountEntry = StringVar()
 
@@ -71,18 +64,12 @@ def GetRegisters(root, mainFrame):
     amount = amountEntry.get()
     category = categoriesDropBox.get()
     payment = paymentsDropBox.get()
-    
-    global totalSpend
-    totalSpend = totalSpend + float(amount)
+
     date_ = varDateEntry.get_date() #! Return a datetime.date
     month = date_.month
     store = storeEntry.get()
 
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
+    my_path = readfiles.Route()
     limitVerified = VerifyLimit(float(amount), month, date_.year)
 
     if limitVerified == True:
@@ -101,15 +88,8 @@ def GetRegisters(root, mainFrame):
             dashboard_w.Dashboard(root, mainFrame)
 
 def VerifyLimit(amount,monthR, yearR):
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    limitfile = open(my_path + r"\main\fakedb\limits.txt")
-    content = [limitfile.readlines()[-1]]
+    content = [readfiles.GetLimitFile()[-1]]
     currentAmount = TotalMonthSpent()
-
     for i in range(len(content)):
         content[i]=content[i].split(",")
     
@@ -122,24 +102,10 @@ def VerifyLimit(amount,monthR, yearR):
                 return False
         
 def TotalMonthSpent():
-    registers_ = CreateGeneralList()
+    registers_ = readfiles.GetRegistersFile()
     amount = 0.0
     for i in range(len(registers_)):
         if date.today().month == int(registers_[i][4]):
             amount = amount + float(registers_[i][0])
 
     return amount
-
-def CreateGeneralList():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
-
-    registers_ = file.readlines()
-    for i in range (len(registers_)):
-        registers_[i]=registers_[i].split(",")
-    file.close()
-    return registers_

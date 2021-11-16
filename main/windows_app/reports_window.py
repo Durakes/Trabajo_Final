@@ -3,6 +3,7 @@ from tkinter import ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import windows_app.dashboard_window as dashboard_w
+import helpers.readfiles as readfiles
 import os
 from datetime import date
 
@@ -11,54 +12,29 @@ monthDic = {1: "Enero", 2:"Febrero", 3:"Marzo", 4:"Abril", 5:"Mayo", 6:"Junio", 
 categories = ["Entreten.","Comida", "Educación", "Ropa", "Otros"]
 
 def GetPaymets():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\payments.txt", "r", encoding="UTF-8")
-    paymentsFile = file.readlines()
+    paymentsFile = readfiles.GetPaymentsFile()
     payments = []
-    for i in range (len(paymentsFile)):
-        paymentsFile[i] = paymentsFile[i].split(",")
-
     for i in range(len(paymentsFile)):
         payments.append(paymentsFile[i][0])
     
     return payments
 
-def CreateList():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
-
-    registers_ = file.readlines()
-
-    for i in range (len(registers_)):
-        registers_[i] = registers_[i].split(",")
-    file.close()
-
-    return registers_
-
 def CreateTableValues():
-    testList = [["Enero",0], ["Febrero",0], ["Marzo",0], ["Abril",0], ["Mayo",0], ["Junio",0], ["Julio",0], ["Agosto",0], ["Septiembre",0], ["Octubre",0], ["Noviembre",0], ["Diciembre",0]]
+    monthTuple = [["Enero",0], ["Febrero",0], ["Marzo",0], ["Abril",0], ["Mayo",0], ["Junio",0], ["Julio",0], ["Agosto",0], ["Septiembre",0], ["Octubre",0], ["Noviembre",0], ["Diciembre",0]]
 
-    registers_ = CreateList()
+    registers_ = readfiles.GetRegistersFile()
 
     for i in range (len(registers_)):
         for number in monthDic:
             if number == int(registers_[i][4]):
-                for j in range(len(testList)):
-                    if testList[j][0] == monthDic[number]:
-                        testList[j][1] = testList[j][1] + float(registers_[i][0])
+                for j in range(len(monthTuple)):
+                    if monthTuple[j][0] == monthDic[number]:
+                        monthTuple[j][1] = monthTuple[j][1] + float(registers_[i][0])
     
-    return testList
+    return monthTuple
 
 def CreateCategoryDic():
-    registers_ = CreateList()
+    registers_ = readfiles.GetRegistersFile()
     categories_ = ["Entretenimiento", "Comida", "Educación", "Ropa", "Otros"]
 
     categoriesDictionary = {category : 0.0 for category in categories_}
@@ -72,7 +48,7 @@ def CreateCategoryDic():
     return categoriesDictionary
 
 def CreatePaymentDic():
-    registers_ = CreateList()
+    registers_ = readfiles.GetRegistersFile()
     payments_ = GetPaymets()
 
     paymentsDictionary = {payment : 0 for payment in payments_}
@@ -86,7 +62,6 @@ def CreatePaymentDic():
     return paymentsDictionary
 
 def Reports(root, mainFrame):
-    #TODO Alinear elementos
     root.title("Reporte Mensual")
     mainFrame.destroy()
     mainFrame = Frame()
@@ -98,11 +73,7 @@ def Reports(root, mainFrame):
 
     CreateGraphV(mainFrame)
 
-    #Label(mainFrame, text = "Métodos de pago mas usados").place(x = 400, y = 20)
-
     CreateGraphH(mainFrame)
-
-    #Label(mainFrame, text = "Resumen gasto total de los últimos 5 meses").place(x = 800, y = 20)
 
     CreateTable(mainFrame)
 
@@ -111,8 +82,7 @@ def Reports(root, mainFrame):
 def CreateGraphV(mainFrame):
     categoriesDictionary = CreateCategoryDic()
 
-    global amounts
-    amounts = [categoriesDictionary["Entretenimiento"], 
+    categoryAmounts = [categoriesDictionary["Entretenimiento"], 
                 categoriesDictionary["Comida"], 
                 categoriesDictionary["Educación"], 
                 categoriesDictionary["Ropa"], 
@@ -120,10 +90,10 @@ def CreateGraphV(mainFrame):
 
     categoriesReport, catGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     categoriesReport.suptitle("Reporte mensual por categorías")
-    catGraph.bar(categories, amounts)
-    catGraph.set_ylim(0, max(amounts)*1.2)
+    catGraph.bar(categories, categoryAmounts)
+    catGraph.set_ylim(0, max(categoryAmounts)*1.2)
     for i in range(len(categories)):
-        catGraph.text(i, amounts[i], amounts[i], ha = "center", va= "bottom")
+        catGraph.text(i, categoryAmounts[i], categoryAmounts[i], ha = "center", va= "bottom")
 
     categoriesCanvas = FigureCanvasTkAgg(categoriesReport, master = mainFrame)
     categoriesCanvas.draw()
@@ -132,17 +102,17 @@ def CreateGraphV(mainFrame):
 def CreateGraphH(mainFrame):
     paymentsDictionary = CreatePaymentDic()
     payments = GetPaymets()
-    amounts2 = []
+    paymentsAmounts = []
     for name in paymentsDictionary:
-        amounts2.append(paymentsDictionary[name])
+        paymentsAmounts.append(paymentsDictionary[name])
 
     paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
-    payGraph.barh(payments, amounts2)
+    payGraph.barh(payments, paymentsAmounts)
 
-    payGraph.set_xlim(0, max(amounts2)*1.2)
+    payGraph.set_xlim(0, max(paymentsAmounts)*1.2)
     for i in range(len(payments)):
-        payGraph.text(amounts2[i], i, amounts2[i], ha = "left", va= "center")
+        payGraph.text(paymentsAmounts[i], i, paymentsAmounts[i], ha = "left", va= "center")
 
     paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = mainFrame)
     paymentsCanvas.draw()

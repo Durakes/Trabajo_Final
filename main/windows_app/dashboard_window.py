@@ -2,28 +2,11 @@ from tkinter import *
 import windows_app.register_window as register_w
 import windows_app.reports_window as reports_w
 import windows_app.profile_window as profile_w
-import helpers.readfiles as rfiles
-import os
+import helpers.readfiles as readfiles
 from datetime import date
 
-shownRegisters = []
-def CreateGeneralList():
-    my_path = os.getcwd()
-
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    file = open(my_path + r"\main\fakedb\registers.txt", "r", encoding="UTF-8")
-
-    registers_ = file.readlines()
-    for i in range (len(registers_)):
-        registers_[i]=registers_[i].split(",")
-    file.close()
-    return registers_
-
 def CreateDashList():
-    registers_ = CreateGeneralList()
+    registers_ = readfiles.GetRegistersFile()
     shownRegisters = registers_[-5:]
 
     for i in range (len(shownRegisters)):
@@ -32,7 +15,7 @@ def CreateDashList():
     return shownRegisters
 
 def TotalMonthSpent():
-    registers_ = CreateGeneralList()
+    registers_ = readfiles.GetRegistersFile()
     amount = 0.0
     for i in range(len(registers_)):
         if date.today().month == int(registers_[i][4]):
@@ -41,13 +24,8 @@ def TotalMonthSpent():
     return amount
 
 def TakeLimit():
-    my_path = os.getcwd()
-    if "\main" in my_path:
-        my_path = my_path[:-5]
-    else:
-        my_path = my_path
-    limitfile = open(my_path + r"\main\fakedb\limits.txt")
-    content = [limitfile.readlines()[-1]]
+    content = [readfiles.GetLimitFile()[-1]]
+
     for i in range(len(content)):
         content[i]=content[i].split(",")
     finalLimit = content[0][0]
