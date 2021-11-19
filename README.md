@@ -31,18 +31,18 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Abrir settings.json
 + Cambiar el servidor de python a Pylance
 + `"python.languageServer": "Pylance"`
++ Recomendado usar el plugin Code Runner
 
 # Pycharm
-+ 
++ Establecer Trabajo_Final como carpeta raíz.
 
 # CMD o Powershell
-+ 
++ Seguir la siguiente lista de comandos
++ cd ".../Trabajo_Final/"
++ py main/main.pyw
 
 ## TODO IMPORTANTE
 + Logo
-+ Página de Perfil
-+ Icono + Nombre
-+ Nombre Reportes (Split en 2 líneas) //Revisar
 + Code Review
 + Datos de prueba
 + MonthDic y Payments en los helpers

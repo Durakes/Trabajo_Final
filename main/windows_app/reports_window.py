@@ -96,6 +96,7 @@ def CreateGraphH(mainFrame):
     paymentMethodsReport, payGraph = plt.subplots(dpi = 80, figsize = (5,3), sharey = True, facecolor = "#f0f0ed")
     paymentMethodsReport.suptitle("Reporte mensual por tipo de pago")
     payGraph.barh(payments, paymentsAmounts)
+    paymentMethodsReport.tight_layout()
 
     payGraph.set_xlim(0, max(paymentsAmounts)*1.2)
     for i in range(len(payments)):
@@ -103,7 +104,7 @@ def CreateGraphH(mainFrame):
 
     paymentsCanvas = FigureCanvasTkAgg(paymentMethodsReport, master = mainFrame)
     paymentsCanvas.draw()
-    paymentsCanvas.get_tk_widget().place(x = 425, y = 90)
+    paymentsCanvas.get_tk_widget().place(x = 390, y = 90)
 
 #* Función para crear la tabla de resumen mensual.
 def CreateTable(mainFrame):

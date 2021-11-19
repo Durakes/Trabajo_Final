@@ -54,25 +54,30 @@ def Profile(root, mainFrame):
     mainFrame.destroy()
     mainFrame = Frame()
     mainFrame.config(width = "425", height = "852")
+    #? mainFrame.config(width = "425", height = "700")
     mainFrame.pack()
+
     global visaLogo 
     visaLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Visa.png").resize((50,25), Image.ANTIALIAS))
     global paypalLogo 
     paypalLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Paypal.png").resize((52,20), Image.ANTIALIAS))
     global mastercardLogo
     mastercardLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Mastercard.png").resize((50,28), Image.ANTIALIAS))
+    global profileLogo
+    profileLogo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Profile.png").resize((150,150), Image.ANTIALIAS))
 
-    Label(mainFrame, text = "Perfil").place(x = 190, y = 50)
-    Label(mainFrame, text = "Nombre: ").place(x = 200, y = 100)
-    Label(mainFrame, text = "Apellidos: ").place(x = 200, y = 130)
-    Label(mainFrame, text = "Correo: ").place(x = 200, y = 160)
+    Label(mainFrame, text = "Perfil").place(x = 250, y = 50)
+    Label(mainFrame, image = profileLogo).place(x = 30, y = 30)
+    Label(mainFrame, text = "Nombre: Eduardo Gonzalo").place(x = 200, y = 100)
+    Label(mainFrame, text = "Apellidos: Bautista Arrilucea").place(x = 200, y = 130)
+    Label(mainFrame, text = "Correo: eduardo.bautistaa@usil.pe").place(x = 200, y = 160)
 
     Label(mainFrame, text = "Cuentas asociadas:").place(x = 70, y = 250)
 
     imageDic = {"1": visaLogo, "2": mastercardLogo, "3": paypalLogo}
     paymentsList = CreateList()
     positiony = 320
-    
+
     for i in range(len(paymentsList)-1,-1,-1):
         Label(mainFrame, image = imageDic[paymentsList[i][1]]).place(x = 50, y = positiony)
         Label(mainFrame, text = paymentsList[i][0], bg = "white").place(x = 120, y = positiony)

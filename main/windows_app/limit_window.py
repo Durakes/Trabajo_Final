@@ -42,12 +42,13 @@ def Limit(root, mainFrame):
     mainFrame.destroy()
     mainFrame = Frame()
     mainFrame.config(width = "425", height = "852")
+    #? mainFrame.config(width = "425", height = "390")
     mainFrame.pack()
 
-    Label(mainFrame, text = "Establece tu límite mensual").place(x = 130, y = 70)
-    Label(mainFrame, text = "Mes: " + str(monthDic[date.today().month])).place(x = 120, y = 110)
-    Label(mainFrame, text = "Ingresa tu monto límite: ").place(x = 80, y = 150)
+    Label(mainFrame, text = "Establece tu límite mensual").place(x = 140, y = 70)
+    Label(mainFrame, text = "Mes: " + str(monthDic[date.today().month])).place(x = 180, y = 110)
+    Label(mainFrame, text = "Ingresa tu monto límite: ").place(x = 65, y = 150)
     Entry(mainFrame, width = 25, borderwidth = 2, textvariable = limitEntry).place(x = 220, y = 150)
 
-    Button(mainFrame, text = "Guardar", width = 10, command = lambda: SetLimit(root, mainFrame)).place(x = 150, y = 220)
-    Button(mainFrame, text = "Volver", command = lambda: profile_w.Profile(root, mainFrame)).place(x = 170, y = 280)
+    Button(mainFrame, text = "Guardar", width = 10, command = lambda: SetLimit(root, mainFrame)).place(x = 170, y = 220)
+    Button(mainFrame, text = "Volver", width = 10, command = lambda: profile_w.Profile(root, mainFrame)).place(x = 170, y = 280)
