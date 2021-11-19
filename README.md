@@ -38,8 +38,8 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 
 # CMD o Powershell
 + Seguir la siguiente lista de comandos
-+ cd ".../Trabajo_Final/"
-+ py main/main.pyw
++ `cd ".../Trabajo_Final/"`
++ `py main/main.pyw`
 
 ## TODO IMPORTANTE
 + Logo
@@ -47,7 +47,7 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + Datos de prueba
 + MonthDic y Payments en los helpers
 
-## Posibles adicionales
+## Posibles adicionales (Por ver)
 + Reporte por tienda
 + Agregar eliminación lógica al borrar metodo de pago
 + Mostrar reportes de metodos de pago eliminados.
