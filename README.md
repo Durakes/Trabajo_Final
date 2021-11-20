@@ -42,10 +42,11 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + `py main/main.pyw`
 
 ## TODO IMPORTANTE
-+ Logo
-+ Code Review
-+ Datos de prueba
-+ MonthDic y Payments en los helpers
++ Límite cuando es un mes diferente.
++ Logo.
++ Code Review.
++ Datos de prueba.
++ MonthDic y Payments en los helpers.
 
 ## Posibles adicionales (Por ver)
 + Reporte por tienda

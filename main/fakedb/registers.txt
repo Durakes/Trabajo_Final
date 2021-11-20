@@ -1,14 +1,19 @@
-450,Educación,mastercard6,2021-11-01,11,Amazon
-322,Otros,visa2,2021-11-02,11,Usil
-120,Entretenimiento,mastercard2,2021-11-09,11,H&M
-320,Ropa,visa3,2021-11-07,11,Spotify
-125,Comida,mastercard6,2021-11-08,11,Xiaomi
-300,Ropa,visa3,2021-11-16,11,Apple
-562,Comida,paypal1,2021-11-29,11,Zara
-100,Entretenimiento,visa3,2021-11-11,11,Xiaomi
-200,Comida,paypal1,2021-11-09,11,HyperX
-100,Comida,paypal1,2021-11-11,11,Wong
-300,Comida,paypal1,2021-11-11,11,Amazon
-250,Comida,interbank,2021-11-14,11,KFC
-520,Ropa,interbank,2021-11-01,11,Amazon
-523.50,Ropa,interbank,2021-11-16,11,H&M
+1000,Educación,BCP,2021-01-08,1,Usil
+40,Educación,Interbank,2021-11-20,11,Udemy
+600,Educación,Personal,2021-02-12,2,TOEFL
+500,Otros,Ahorros,2021-11-20,11,Busca Libre
+200,Comida,Personal,2021-03-03,3,Rappi
+125,Ropa,Interbank,2021-04-07,4,H&M
+1000,Educación,BCP,2021-03-08,3,Usil
+40,Educación,Interbank,2021-11-20,11,Udemy
+70,Educación,Personal,2021-02-12,2,Platzi
+600,Otros,Ahorros,2021-08-20,8,Busca Libre
+50,Comida,Personal,2021-05-03,5,Rappi
+320,Ropa,Interbank,2021-06-07,6,Platanitos
+119.30,Otros,Interbank,2021-07-07,7,Luz del sur
+73,Otros,Ahorros,2021-09-08,9,Inkafarma
+150,Entretenimiento,Personal,2021-10-19,10,Steam
+18,Entretenimiento,Personal,2021-11-20,11,Spotify
+25,Entretenimiento,BCP,2021-11-20,11,Youtube
+75.3,Comida,Ahorros,2021-11-16,11,Rappi
+120,Ropa,Interbank,2021-11-14,11,Platanitos

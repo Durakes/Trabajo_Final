@@ -109,9 +109,9 @@ def CreateGraphH(mainFrame):
 #* Función para crear la tabla de resumen mensual.
 def CreateTable(mainFrame):
     monthList = CreateTableValues()
-    lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2), show = "headings", height = "10")
+    lastMonthTable = ttk.Treeview(mainFrame, columns = (1,2), show = "headings", height = "12")
 
-    lastMonthTable.place(x = 840, y = 90)
+    lastMonthTable.place(x = 840, y = 65)
 
     lastMonthTable.column(1, width = 100)
     lastMonthTable.column(2, width=100, anchor=CENTER)

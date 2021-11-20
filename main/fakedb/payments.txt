@@ -1,2 +1,4 @@
-mastercard2,2,Master Card,4532,07,2024
-interbank,3,PayPal,5472,12,202
+Ahorros,2,Master Card,4532,07,2024
+BCP,1,Visa,3625,03,2023
+Personal,3,PayPal,5412,06,2022
+Interbank,1,Visa,9026,02,2025

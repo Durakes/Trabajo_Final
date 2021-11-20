@@ -77,8 +77,8 @@ def Register(root, mainFrame):
 
     mainFrame.destroy()
     mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
-    #? mainFrame.config(width = "425", height = "555")
+    #? mainFrame.config(width = "425", height = "852")
+    mainFrame.config(width = "425", height = "555")
     mainFrame.pack()
 
     Label(mainFrame, text = "Ingrese el monto gastado").place(x = 150, y = 50)

@@ -53,16 +53,17 @@ def NewPaymenMethod(root, mainFrame):
 
     mainFrame.destroy()
     mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
-    #? mainFrame.config(width = "425", height = "575")
+    #? mainFrame.config(width = "425", height = "852")
+    mainFrame.config(width = "425", height = "575")
     mainFrame.pack()
 
     Label(mainFrame, text = "Nombre de la Tarjeta").place(x = 50, y = 200)
-    Entry(mainFrame, width = 20, borderwidth = 2, textvariable=cardID).place(x = 200, y = 200)
+    Entry(mainFrame, width = 20, borderwidth = 2, textvariable = cardID).place(x = 200, y = 200)
 
     Label(mainFrame, text = "Tipo de Tarjeta").place(x = 50, y = 230)
     global cardType
-    cardType = ttk.Combobox(mainFrame, width = 20)
+    cardType = ttk.Combobox(mainFrame)
+    cardType.set("Selecciona una opción")
     cardType["values"] = payments_
     cardType.place(x = 200, y = 230)
 

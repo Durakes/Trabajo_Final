@@ -41,8 +41,8 @@ def Limit(root, mainFrame):
     limitEntry = StringVar()
     mainFrame.destroy()
     mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
-    #? mainFrame.config(width = "425", height = "390")
+    #? mainFrame.config(width = "425", height = "852")
+    mainFrame.config(width = "425", height = "390")
     mainFrame.pack()
 
     Label(mainFrame, text = "Establece tu límite mensual").place(x = 140, y = 70)

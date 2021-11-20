@@ -53,8 +53,8 @@ def Profile(root, mainFrame):
 
     mainFrame.destroy()
     mainFrame = Frame()
-    mainFrame.config(width = "425", height = "852")
-    #? mainFrame.config(width = "425", height = "700")
+    #? mainFrame.config(width = "425", height = "852")
+    mainFrame.config(width = "425", height = "700")
     mainFrame.pack()
 
     global visaLogo 
