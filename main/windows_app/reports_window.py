@@ -52,7 +52,7 @@ def CreatePaymentDic():
     registers_ = readfiles.GetRegistersFile()
     payments_ = GetPaymets()
 
-    paymentsDictionary = {payment : 0 for payment in payments_}
+    paymentsDictionary = {payment : 0.0 for payment in payments_}
 
     for i in range(len(registers_)):
         if int(registers_[i][4]) == date.today().month:
