@@ -41,15 +41,9 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 + `cd ".../Trabajo_Final/"`
 + `py main/main.pyw`
 
-## TODO IMPORTANTE
-+ Límite cuando es un mes diferente.
-+ Logo.
-+ Code Review.
-+ Datos de prueba.
-+ MonthDic y Payments en los helpers.
-
-## Posibles adicionales (Por ver)
+## Posibles adicionales V2.0 
 + Reporte por tienda
 + Agregar eliminación lógica al borrar metodo de pago
 + Mostrar reportes de metodos de pago eliminados.
 + Estilos
++ MonthDic y Payments en los helpers.
