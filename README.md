@@ -15,15 +15,15 @@ Librerias: Tkinter, Pillow, Matplotlib, Tkcalendar
 
 ## Instalación librerias necesarias:
 3.0+
-`pip install Pillow`
-`pip install matplotlib`
-`pip install tkcalendar`
++ `pip install Pillow`
++ `pip install matplotlib`
++ `pip install tkcalendar`
 
 3.10
 + Descargar el archivo "matplotlib‑3.4.3‑cp310‑cp310‑win_amd64.whl" desde -> https://www.lfd.uci.edu/~gohlke/pythonlibs/#matplotlib
 + Copiar el archivo en la carpeta raíz "TRABAJO_FINAL-main"
 + Correr el siguiente comando
-`pip install matplotlib-3.4.3-cp310-cp310-win_amd64.whl`
++ `pip install matplotlib-3.4.3-cp310-cp310-win_amd64.whl`
 
 ## Instrucciones por IDE
 # VSCode
