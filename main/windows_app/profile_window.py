@@ -16,7 +16,7 @@ def CreateList():
 
     return paymentsList
 
-#* Función para borrar un método de pago
+#* Función para borrar un método de pago.
 def Erase(index, root, mainFrame):
     paymentsList = CreateList()
 

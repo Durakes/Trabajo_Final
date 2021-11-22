@@ -19,3 +19,4 @@
 120,Ropa,Interbank,2021-11-14,11,Platanitos
 152,Ropa,Interbank,2021-09-08,9,Amazon
 21,Ropa,Interbank,2021-07-05,7,Asus
+25,Comida,Interbank,2021-11-22,11,Rappi
