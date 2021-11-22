@@ -119,8 +119,8 @@ def CreateTable(mainFrame):
     lastMonthTable.heading(1, text = "Mes")
     lastMonthTable.heading(2, text = "Total Gastado")
 
-    for i in range(len(monthList)):
-        lastMonthTable.insert("", "end", values=monthList[i])
+    for value in monthList:
+        lastMonthTable.insert("", "end", values=value)
 
 #* Estructura de la ventana de los reportes generales.
 def Reports(root, mainFrame):
