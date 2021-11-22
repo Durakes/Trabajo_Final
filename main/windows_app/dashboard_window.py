@@ -40,7 +40,6 @@ def Dashboard(root, mainFrame):
     root.title("Dashboard")
     mainFrame.destroy()
     mainFrame = Frame(root)
-    #? mainFrame.config(width = "425", height = "852")
     mainFrame.config(width = "425", height = "670")
     mainFrame.pack()
     

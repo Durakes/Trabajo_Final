@@ -41,7 +41,6 @@ def Limit(root, mainFrame):
     limitEntry = StringVar()
     mainFrame.destroy()
     mainFrame = Frame()
-    #? mainFrame.config(width = "425", height = "852")
     mainFrame.config(width = "425", height = "390")
     mainFrame.pack()
 

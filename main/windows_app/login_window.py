@@ -13,6 +13,6 @@ def Login(root, mainFrame):
     global logo
     logo = ImageTk.PhotoImage(Image.open(my_path + "\main\images\Logo.png"))
     
-    Label(mainFrame, image = logo).place(relx = 0.25, rely = 0.2)
+    Label(mainFrame, image = logo).place(relx = 0.21, rely = 0.18)
     
-    Button(mainFrame, text = "INICIO", width = 20, height = 3, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(relx = 0.35, y = 280)
+    Button(mainFrame, text = "INICIO", width = 20, height = 3, command = lambda: dashboard_w.Dashboard(root, mainFrame)).place(relx = 0.32, y = 280)

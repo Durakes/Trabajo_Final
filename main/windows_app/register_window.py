@@ -26,10 +26,12 @@ def VerifyLimit(amount,monthR, yearR):
     content[0][2] = content[0][2][:-1]
     
     if monthR == int(content[0][1]) and yearR == int(content[0][2]):
-            if float(content[0][0]) > currentAmount + amount:
-                return True
-            else:
-                return False
+        if float(content[0][0]) > currentAmount + amount:
+            return True
+        else:
+            return False
+    else:
+        return True
         
 #* Función para calcular el total gastado en el mes.
 def TotalMonthSpent():
@@ -77,7 +79,6 @@ def Register(root, mainFrame):
 
     mainFrame.destroy()
     mainFrame = Frame()
-    #? mainFrame.config(width = "425", height = "852")
     mainFrame.config(width = "425", height = "555")
     mainFrame.pack()
 

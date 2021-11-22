@@ -53,7 +53,6 @@ def NewPaymenMethod(root, mainFrame):
 
     mainFrame.destroy()
     mainFrame = Frame()
-    #? mainFrame.config(width = "425", height = "852")
     mainFrame.config(width = "425", height = "575")
     mainFrame.pack()
 
