@@ -5,9 +5,7 @@ import windows_app.profile_window as profile_w
 import helpers.readfiles as readfiles
 
 #* Función para guardar los métodos de pago en el archivo txt.
-def SavePaymentType(root, mainFrame):
-    global index
-    
+def SavePaymentType(root, mainFrame): 
     cardname = cardID.get()
     cardnum = cardNumber.get()
     cardtype = cardType.get()
